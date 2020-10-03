@@ -6,7 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/USUARIO/git/SI_LAB_B1_3/gson-2.8.2.jar"/>
-	<classpathentry kind="lib" path="D:/pitah/juegos/gson-2.8.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/05724539/Desktop/4º Ingeniería Informática/1er Cuatrimestre/Sistemas Inteligentes/Laboratorio/Practica Laberinto/Librerias/gson-2.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
