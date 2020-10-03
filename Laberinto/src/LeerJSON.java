@@ -40,29 +40,41 @@ public class LeerJSON {
         
         int filas = gsonObj.get("rows").getAsInt();
         int columnas = gsonObj.get("cols").getAsInt();
-        String posCelda = "";
         
         JsonObject cells = gsonObj.get("cells").getAsJsonObject();
         
-        leerCeldas(filas, columnas, cells);
+        leerLaberinto(filas, columnas, cells);
+        
+        
     }
     
-	public static void leerCeldas(int filas, int columnas, JsonObject cells) {
+    public static void leerLaberinto(int filas, int columnas, JsonObject cells) {
+    	Laberinto laberinto = new Laberinto();
+    	
+    	laberinto.setFilas(filas);
+    	laberinto.setColumnas(columnas);
+    	leerCeldas(filas, columnas, cells, laberinto);
+    	
+    }
+    
+	public static void leerCeldas(int filas, int columnas, JsonObject cells, Laberinto laberinto) {
     	
     	String posCelda = "";
     	int[] vectorPosicion = new int[2];
     	boolean[] vectorVecinos = new boolean[4];
+    	Celda celdas[][] = new Celda[filas][columnas];
+    	Celda c = new Celda();
     	int k;
     	
     	for(int i = 0; i < filas ; i++) {
         	for (int j = 0; j < columnas ; j++) {
-        		Celda c = new Celda();
+        		Celda aux = c;
         		posCelda = "("+i+","+j+")";
         		JsonObject cell = cells.get(posCelda).getAsJsonObject();
         		vectorPosicion[0] = i;
         		vectorPosicion[1] = j;
-        		c.setPosicion(vectorPosicion);
-        		c.setValor(cell.get("value").getAsInt());
+        		aux.setPosicion(vectorPosicion);
+        		aux.setValor(cell.get("value").getAsInt());
         		JsonArray vecinos = cell.get("neighbors").getAsJsonArray();
         		k = 0;
         		for (JsonElement vecino : vecinos) {
@@ -70,15 +82,19 @@ public class LeerJSON {
                     k++;
                 }
         		
-        		/*for (int k = 0; k < vecinos.size(); k++) {
-                    vectorVecinos[k] = vecinos.get(k) != null;
-                }*/
-        		c.setVecinos(vectorVecinos);
-        		System.out.println(c.toString()); //SOLO SE MUESTRAN
+        		aux.setVecinos(vectorVecinos);
+        		celdas[i][j] = aux;
+        		System.out.println(celdas[i][j].toString()); //SOLO SE MUESTRAN
+        		System.out.println(celdas[1][1]); //PORQUE SE METE EL ULTIMO VALOR EN TODAS LAS CASILLAS
+        		System.out.println("------------------------");
         	}
         }
-    	/*for(int i = 0; i < celdas.size(); i++) {
-    		System.out.println(celdas.get(i));
-    	}*/
+    	laberinto.setCeldas(celdas);
+    	
+    	for(int w = 0; w < celdas.length ; w++) {
+        	for (int q = 0; q < celdas[w].length ; q++) {
+        		System.out.println(celdas[w][q]);
+        	}
+    	}
     }
 }
