@@ -12,10 +12,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-/**
- *
- * @author xcheko51x
- */
+
 public class LeerJSON {
 
     public static void main(String[] args) {
