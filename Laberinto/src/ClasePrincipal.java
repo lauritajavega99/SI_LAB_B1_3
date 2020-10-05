@@ -40,17 +40,19 @@ public class ClasePrincipal {
 	}
 	
 	public static Laberinto wilson(Laberinto lab) {
-		Celda nextC = new Celda();
-		
+		Celda nextC, siguiC = new Celda();
 		if(esComienzo(lab)) { // true si estan todas ls celdas NO visitadas
 			System.out.println("El laberinto se empezará a formar...");
-			
-			//AQUI LA MAGIA
+			lab.getCeldas()[celdaAleatoria(lab).getPosicion()[0]][celdaAleatoria(lab).getPosicion()[1]].setVisitado(true); //se puede poner el metodo pero se alarga mucho...
+			wilson(lab);
 			
 		}else if (estaCompletado(lab)) { //True si no quedan celdas por visitar
 			System.out.println("El laberinto esta completo");
+			return lab;
 			
-			//AQUI MAS MAGIA
+		}else { //Las iteraciones...
+			
+			//LA CHICHA
 			
 		}
 		
