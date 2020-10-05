@@ -1,6 +1,11 @@
 
 public class ClasePrincipal {
-
+	
+	private static final int NORTE = 0;
+	private static final int ESTE = 1;
+	private static final int SUR = 2;
+	private static final int OESTE = 3;
+	
 	public static void main(String[] args) {
 		
 		construirLab();
@@ -8,7 +13,7 @@ public class ClasePrincipal {
 	
 	public static void construirLab() {
 		Laberinto laberinto = new Laberinto();
-		laberinto = introducirCeldas(laberinto, 4); //Tamaño del laberinto
+		laberinto = introducirCeldas(laberinto, 3); //Tamaño del laberinto
 		laberinto = wilson(laberinto);
 		
 		mostrarCeldas(laberinto);
@@ -39,11 +44,15 @@ public class ClasePrincipal {
 	}
 	
 	public static Laberinto wilson(Laberinto lab) {
-		Celda nextC, siguiC = new Celda();
+		Celda nextC, siguiC, iniC = new Celda();
+		Celda[][] celdas = lab.getCeldas();
 		if(esComienzo(lab)) { // true si estan todas ls celdas NO visitadas
 			System.out.println("El laberinto se empezará a formar...");
-			lab.getCeldas()[celdaAleatoria(lab).getPosicion()[0]][celdaAleatoria(lab).getPosicion()[1]].setVisitado(true); //se puede poner el metodo pero se alarga mucho...
-			wilson(lab);
+			iniC = celdaAleatoria(lab);
+			iniC.setVisitado(true);
+			celdas[iniC.getPosicion()[0]][iniC.getPosicion()[1]] = iniC;
+			lab.setCeldas(celdas); 
+			return wilson(lab);
 			
 		}else if (estaCompletado(lab)) { //True si no quedan celdas por visitar
 			System.out.println("El laberinto esta completo");
@@ -51,29 +60,29 @@ public class ClasePrincipal {
 			
 		}else { //Las iteraciones...
 			
-			//LA MAGIA
+			/*
+			nextC = celdaAleatoria(lab);
+			nextC.setVisitado(true);
+			celdas[nextC.getPosicion()[0]][nextC.getPosicion()[1]] = nextC;
+			lab.setCeldas(celdas);*/
 			
+			
+			//LA MAGIA
+			return wilson(lab);
 		}
-		
-		return lab;
 	}
 	
-	public static Celda celdaAleatoria(Laberinto lab) {
-		Celda c = new Celda();
+	public static Celda celdaAleatoria(Laberinto lab) { //NOS DEVUELVE UNA CELDA ALEATORIA NO VISITADA
 		Celda[][] celdas = lab.getCeldas();
 		int fila, columna;
-		int[] posicion = new int[2];
 		while(true) {
 			fila = (int) Math.floor(Math.random()*lab.getFilas());
 			columna = (int) Math.floor(Math.random()*lab.getColumnas());
 			if(celdas[fila][columna].isVisitado() == false) {
-				posicion[0] = fila;
-				posicion[1] = columna;
-				c.setPosicion(posicion);
 				break;
 			}
 		}
-		return c;
+		return celdas[fila][columna];
 	}
 	
 	public static boolean estaCompletado(Laberinto lab) {
