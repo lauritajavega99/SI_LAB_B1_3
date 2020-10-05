@@ -12,10 +12,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-/**
- *
- * @author xcheko51x
- */
+
 public class LeerJSON {
 
     public static void main(String[] args) {
@@ -62,38 +59,35 @@ public class LeerJSON {
     	String posCelda = "";
     	int[] vectorPosicion = new int[2];
     	boolean[] vectorVecinos = new boolean[4];
-    	Celda celdas[][] = new Celda[filas][columnas];
+    	Celda[][] celdas = new Celda[filas][columnas];
     	Celda c = new Celda();
     	int k;
     	
     	for(int i = 0; i < filas ; i++) {
         	for (int j = 0; j < columnas ; j++) {
-        		Celda aux = c;
         		posCelda = "("+i+","+j+")";
         		JsonObject cell = cells.get(posCelda).getAsJsonObject();
         		vectorPosicion[0] = i;
         		vectorPosicion[1] = j;
-        		aux.setPosicion(vectorPosicion);
-        		aux.setValor(cell.get("value").getAsInt());
+        		c.setPosicion(vectorPosicion);
+        		c.setValor(cell.get("value").getAsInt());
         		JsonArray vecinos = cell.get("neighbors").getAsJsonArray();
         		k = 0;
         		for (JsonElement vecino : vecinos) {
         			vectorVecinos[k] = vecino.getAsBoolean();
                     k++;
                 }
-        		
-        		aux.setVecinos(vectorVecinos);
-        		celdas[i][j] = aux;
-        		System.out.println(celdas[i][j].toString()); //SOLO SE MUESTRAN
-        		System.out.println(celdas[1][1]); //PORQUE SE METE EL ULTIMO VALOR EN TODAS LAS CASILLAS
-        		System.out.println("------------------------");
+        		c.setVecinos(vectorVecinos);
+        		System.out.println(c.toString());
+        		celdas[i][j] = c;
         	}
         }
-    	laberinto.setCeldas(celdas);
     	
+    	laberinto.setCeldas(celdas);
+    	System.out.println("--------------------------------");
     	for(int w = 0; w < celdas.length ; w++) {
-        	for (int q = 0; q < celdas[w].length ; q++) {
-        		System.out.println(celdas[w][q]);
+        	for (int q = 0; q < celdas[0].length ; q++) {
+        		System.out.println(celdas[w][q]); 
         	}
     	}
     }
