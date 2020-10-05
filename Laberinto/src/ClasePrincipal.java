@@ -8,11 +8,10 @@ public class ClasePrincipal {
 	
 	public static void construirLab() {
 		Laberinto laberinto = new Laberinto();
-		laberinto = introducirCeldas(laberinto, 3); //Tamaño del laberinto
+		laberinto = introducirCeldas(laberinto, 4); //Tamaño del laberinto
 		laberinto = wilson(laberinto);
 		
 		mostrarCeldas(laberinto);
-		
 	}
 	
 	public static Laberinto introducirCeldas(Laberinto lab, int tamañoLab) { //Metodo que inicializa el laberinto.
@@ -52,7 +51,7 @@ public class ClasePrincipal {
 			
 		}else { //Las iteraciones...
 			
-			//LA CHICHA
+			//LA MAGIA
 			
 		}
 		
@@ -98,7 +97,6 @@ public class ClasePrincipal {
 				}
 			}
 		}
-		
 		return true;
 	}
 	
