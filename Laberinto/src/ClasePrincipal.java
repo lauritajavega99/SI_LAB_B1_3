@@ -60,14 +60,18 @@ public class ClasePrincipal {
 			
 		}else { //Las iteraciones...
 			
-			/*
+			
+			//AQUI LA MAGIA
+			
+			
+			/* PARA COMPROBAR LA RECURSIVIDAD
 			nextC = celdaAleatoria(lab);
 			nextC.setVisitado(true);
 			celdas[nextC.getPosicion()[0]][nextC.getPosicion()[1]] = nextC;
-			lab.setCeldas(celdas);*/
+			lab.setCeldas(celdas);
+			System.out.println("FORMANDOSE LA MAGIA");
+			mostrarCeldas(lab);*/
 			
-			
-			//LA MAGIA
 			return wilson(lab);
 		}
 	}
