@@ -44,7 +44,7 @@ public class ClasePrincipal {
 	}
 	
 	public static Laberinto wilson(Laberinto lab) {
-		Celda nextC, siguiC, iniC = new Celda();
+		Celda nextC, veciC, iniC = new Celda();
 		Celda[][] celdas = lab.getCeldas();
 		if(esComienzo(lab)) { // true si estan todas ls celdas NO visitadas
 			System.out.println("El laberinto se empezará a formar...");
@@ -59,20 +59,40 @@ public class ClasePrincipal {
 			return lab;
 			
 		}else { //Las iteraciones...
-			
-			
-			//AQUI LA MAGIA
-			
-			
-			/* PARA COMPROBAR LA RECURSIVIDAD
 			nextC = celdaAleatoria(lab);
 			nextC.setVisitado(true);
 			celdas[nextC.getPosicion()[0]][nextC.getPosicion()[1]] = nextC;
-			lab.setCeldas(celdas);
-			System.out.println("FORMANDOSE LA MAGIA");
-			mostrarCeldas(lab);*/
+			lab.setCeldas(celdas); 
+			int direccion;
 			
-			return wilson(lab);
+			do {
+				direccion = (int) Math.floor(Math.random()*4);
+				if(direccion == NORTE && comprobarLimite(lab, nextC, NORTE)) {
+					
+				}else if(direccion == ESTE && comprobarLimite(lab, nextC, ESTE)) {
+					
+				}else if(direccion == SUR && comprobarLimite(lab, nextC, SUR)) {
+					
+				}else if(direccion == OESTE && comprobarLimite(lab, nextC, OESTE)) {
+					
+				}else {
+					return wilson(lab);
+				}
+			}while(true);
+		}
+	}
+	
+	public static boolean comprobarLimite(Laberinto lab, Celda c, int direccion) {
+		if(direccion == NORTE && c.getPosicion()[0] - 1 > -1) {
+			return true;
+		}else if(direccion == ESTE && c.getPosicion()[1] + 1 < lab.getFilas()) {
+			return true;
+		}else if(direccion == SUR && c.getPosicion()[0] + 1 < lab.getColumnas()) {
+			return true;
+		}else if(direccion == OESTE && c.getPosicion()[1] - 1 > -1) {
+			return true;
+		}else {
+			return false;
 		}
 	}
 	
