@@ -68,6 +68,11 @@ public class ClasePrincipal {
 			do {
 				direccion = (int) Math.floor(Math.random()*4);
 				if(direccion == NORTE && comprobarLimite(lab, nextC, NORTE)) {
+					if(celdaVisitada(lab, nextC, NORTE)) {
+						
+					}else {
+						
+					}
 					
 				}else if(direccion == ESTE && comprobarLimite(lab, nextC, ESTE)) {
 					
@@ -75,14 +80,19 @@ public class ClasePrincipal {
 					
 				}else if(direccion == OESTE && comprobarLimite(lab, nextC, OESTE)) {
 					
-				}else {
-					return wilson(lab);
 				}
 			}while(true);
 		}
 	}
 	
-	public static boolean comprobarLimite(Laberinto lab, Celda c, int direccion) {
+	public static boolean celdaVisitada(Laberinto lab, Celda c, int direccion) {
+		
+		
+		
+		return true;
+	}
+	
+	public static boolean comprobarLimite(Laberinto lab, Celda c, int direccion) { //COMPROBAR LIMITES
 		if(direccion == NORTE && c.getPosicion()[0] - 1 > -1) {
 			return true;
 		}else if(direccion == ESTE && c.getPosicion()[1] + 1 < lab.getFilas()) {
