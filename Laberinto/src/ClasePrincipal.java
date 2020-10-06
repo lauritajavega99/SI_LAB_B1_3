@@ -68,7 +68,7 @@ public class ClasePrincipal {
 			camino[0] = nextC;
 			mostrarCeldas(lab);
 			
-			do {
+			do { //HAY QUE HACER UN METODO Y UNICAMENTE DIFERENCIAR LA DIRECCION POR EL RAMDON
 				direccion = (int) Math.floor(Math.random()*4);
 				if(direccion == NORTE && comprobarLimite(lab, nextC, NORTE)) { //TRUE SI ESTÁ DENTRO DEL LIMITE
 					
