@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class ClasePrincipal {
 	
@@ -5,6 +6,7 @@ public class ClasePrincipal {
 	private static final int ESTE = 1;
 	private static final int SUR = 2;
 	private static final int OESTE = 3;
+	private static final ArrayList<Celda> CAMINO = new ArrayList<Celda>();
 	
 	public static void main(String[] args) {
 		
@@ -46,6 +48,7 @@ public class ClasePrincipal {
 	public static Laberinto wilson(Laberinto lab) {
 		Celda nextC, veciC, iniC = new Celda();
 		Celda[][] celdas = lab.getCeldas();
+		
 		if(esComienzo(lab)) { // true si estan todas ls celdas NO visitadas
 			System.out.println("El laberinto se empezará a formar...");
 			iniC = celdaAleatoria(lab);
@@ -59,96 +62,47 @@ public class ClasePrincipal {
 			return lab;
 			
 		}else { //Las iteraciones...
-			nextC = celdaAleatoria(lab);
+			nextC = celdaAleatoria(lab); //CELDA ALEATORIA NO VISITADA
 			nextC.setVisitado(true);
 			celdas[nextC.getPosicion()[0]][nextC.getPosicion()[1]] = nextC;
 			lab.setCeldas(celdas); 
 			int direccion;
-			Celda[] camino = new Celda[lab.getColumnas()*lab.getFilas()];
-			camino[0] = nextC;
-			mostrarCeldas(lab);
+			CAMINO.clear();
 			
 			do { //HAY QUE HACER UN METODO Y UNICAMENTE DIFERENCIAR LA DIRECCION POR EL RAMDON
+				mostrarCeldas(lab);
+				System.out.println("--");
 				direccion = (int) Math.floor(Math.random()*4);
 				if(direccion == NORTE && comprobarLimite(lab, nextC, NORTE)) { //TRUE SI ESTÁ DENTRO DEL LIMITE
 					
 					veciC = celdas[nextC.getPosicion()[0] - 1][nextC.getPosicion()[1]];
 					
-					if(estaEnCamino(veciC, camino)) { //DETECTAR BUCLES
-						camino = quitarDeCamino(camino, veciC); //QUITO DEL CAMINO LAS DEL BUCLE
-						veciC = cogerUltimaCelda(camino); //OBTENGO LA ULTIMA DE LA LISTA
+					if(estaEnCamino(veciC)) { //DETECTAR BUCLES
+						quitarDeCamino(veciC); //QUITO DEL CAMINO LAS DEL BUCLE
+						veciC = cogerUltimaCelda(); //OBTENGO LA ULTIMA DE LA LISTA
 					}else {
-						quitarPared(nextC, veciC, NORTE); //COMPROBAR ESTO POR SI DEBO DEVOLVER EL LABERINTO.
-						camino = meterEnCamino(veciC, camino);
+						nextC = quitarPared(nextC, NORTE);
+						veciC = quitarPared(veciC, SUR);//COMPROBAR ESTO POR SI DEBO DEVOLVER EL LABERINTO.
+						meterEnCamino(nextC);
+						meterEnCamino(veciC);
 					}
 					
 					if(celdaVisitada(veciC, NORTE)) { //TRUE SI LA SIGUIENTE EN LA DIRECCION ESTA VISITADA
 						
-						camino = ponerAVisitadas(camino);
-						lab.setCeldas(introducirAlLaberinto(celdas, camino));
+						ponerAVisitadas();
+						lab.setCeldas(introducirAlLaberinto(celdas));
 						
 						return wilson(lab);
 					}
 					
 				}else if(direccion == ESTE && comprobarLimite(lab, nextC, ESTE)) {
 					
-					veciC = celdas[nextC.getPosicion()[0]][nextC.getPosicion()[1] + 1];
-					
-					if(estaEnCamino(veciC, camino)) { //DETECTAR BUCLES
-						camino = quitarDeCamino(camino, veciC); //QUITO DEL CAMINO LAS DEL BUCLE
-						veciC = cogerUltimaCelda(camino); //OBTENGO LA ULTIMA DE LA LISTA
-					}else {
-						quitarPared(nextC, veciC, ESTE); //COMPROBAR ESTO POR SI DEBO DEVOLVER EL LABERINTO.
-						camino = meterEnCamino(veciC, camino);
-					}
-					
-					if(celdaVisitada(veciC, ESTE)) { //TRUE SI LA SIGUIENTE EN LA DIRECCION ESTA VISITADA
-						
-						camino = ponerAVisitadas(camino);
-						lab.setCeldas(introducirAlLaberinto(celdas, camino));
-						
-						return wilson(lab);
-					}
 					
 				}else if(direccion == SUR && comprobarLimite(lab, nextC, SUR)) {
 					
-					veciC = celdas[nextC.getPosicion()[0] + 1][nextC.getPosicion()[1]];
-					
-					if(estaEnCamino(veciC, camino)) { //DETECTAR BUCLES
-						camino = quitarDeCamino(camino, veciC); //QUITO DEL CAMINO LAS DEL BUCLE
-						veciC = cogerUltimaCelda(camino); //OBTENGO LA ULTIMA DE LA LISTA
-					}else {
-						quitarPared(nextC, veciC, SUR); //COMPROBAR ESTO POR SI DEBO DEVOLVER EL LABERINTO.
-						camino = meterEnCamino(veciC, camino);
-					}
-					
-					if(celdaVisitada(veciC, SUR)) { //TRUE SI LA SIGUIENTE EN LA DIRECCION ESTA VISITADA
-						
-						camino = ponerAVisitadas(camino);
-						lab.setCeldas(introducirAlLaberinto(celdas, camino));
-						
-						return wilson(lab);
-					}
 					
 				}else if(direccion == OESTE && comprobarLimite(lab, nextC, OESTE)) {
 					
-					veciC = celdas[nextC.getPosicion()[0]][nextC.getPosicion()[1] - 1];
-					
-					if(estaEnCamino(veciC, camino)) { //DETECTAR BUCLES
-						camino = quitarDeCamino(camino, veciC); //QUITO DEL CAMINO LAS DEL BUCLE
-						veciC = cogerUltimaCelda(camino); //OBTENGO LA ULTIMA DE LA LISTA
-					}else {
-						quitarPared(nextC, veciC, OESTE); //COMPROBAR ESTO POR SI DEBO DEVOLVER EL LABERINTO.
-						camino = meterEnCamino(veciC, camino);
-					}
-					
-					if(celdaVisitada(veciC, OESTE)) { //TRUE SI LA SIGUIENTE EN LA DIRECCION ESTA VISITADA
-						
-						camino = ponerAVisitadas(camino);
-						lab.setCeldas(introducirAlLaberinto(celdas, camino));
-						
-						return wilson(lab);
-					}
 					
 				}
 			}while(true);
@@ -156,101 +110,92 @@ public class ClasePrincipal {
 	}
 	
 	
-	private static Celda[][] introducirAlLaberinto(Celda[][] celdas, Celda[] camino) {
-		
-		for(int i = 0; i < camino.length; i++) {
-			if(camino[i] != null) {
-				celdas[camino[i].getPosicion()[0]][camino[i].getPosicion()[1]] = camino[i];
-			}else {
-				return celdas;
-			}
+	private static Celda[][] introducirAlLaberinto(Celda[][] celdas) {
+		Celda[] caminoAux = ponerVector();
+		for(int i = 0; i < CAMINO.size(); i++) {
+			celdas[caminoAux[i].getPosicion()[0]][caminoAux[i].getPosicion()[1]] = caminoAux[i];
 		}
-		
 		return celdas;
 	}
 
-	private static Celda[] ponerAVisitadas(Celda[] camino) {
-		for(int i = 0; i < camino.length; i++) {
-			if(camino[i] != null) {
-				camino[i].setVisitado(true);
+	private static void ponerAVisitadas() {
+		Celda[] caminoAux = ponerVector();
+		for(int i = 0; i < CAMINO.size(); i++) {
+			caminoAux[i].setVisitado(true);
+		}
+		CAMINO.clear();
+		for(int i = 0; i < CAMINO.size(); i++) {
+			CAMINO.add(caminoAux[i]);
+		}
+	}
+	
+	public static Celda[] ponerVector() {
+		Celda[] caminoAux = new Celda[CAMINO.size()];
+		for(int i = 0; i < CAMINO.size(); i++) {
+			caminoAux[i] = CAMINO.get(i);
+		}
+		return caminoAux;
+	}
+
+	private static void meterEnCamino(Celda veciC) {
+		CAMINO.add(veciC);
+	}
+
+	private static Celda cogerUltimaCelda() {
+		return CAMINO.get(CAMINO.size() - 1);
+	}
+
+	private static void quitarDeCamino(Celda veciC) {
+		Celda[] caminoAux = ponerVector();
+		boolean[] vecinos = new boolean[4];
+		
+		for(int i = CAMINO.size() - 1; i >= 0; i--) { //quitando hacia atras
+			caminoAux[i].setVecinos(vecinos);
+			if(veciC.getPosicion()[0] == caminoAux[i].getPosicion()[0] && veciC.getPosicion()[1] == caminoAux[i].getPosicion()[1]) {
+				break;
+			}
+			caminoAux[i] = null;
+		}
+		
+		CAMINO.clear();
+		for(int i = 0; i < CAMINO.size(); i++) {
+			if(caminoAux[i] != null) {
+				CAMINO.add(caminoAux[i]);
 			}else {
-				return camino;
+				break;
 			}
 		}
-		return camino;
-		
 	}
 
-	private static Celda[] meterEnCamino(Celda veciC, Celda[] camino) {
-		for(int i = 0; i < camino.length; i++) {
-			if(camino[i] == null) {
-				camino[i] = veciC;
-				return camino;
-			}
-		}
-		return camino;
-	}
-
-	private static Celda cogerUltimaCelda(Celda[] camino) {
-		Celda c = new Celda();
-		for(int i = 0; i < camino.length; i++) {
-			if(camino[i] == null) {
-				c = camino[i-1];
-				return c;
-			}
-		}
-		return c;
-	}
-
-	private static Celda[] quitarDeCamino(Celda[] camino, Celda veciC) {
-		
-		for(int i = camino.length - 1; i > 0; i--) { //quitando hacia atras
-			if(camino[i] != null) {
-				if(veciC.getPosicion()[0] == camino[i].getPosicion()[0] && veciC.getPosicion()[1] == camino[i].getPosicion()[1]) {
-					return camino;
-				}
-				camino[i] = null;
-			}
-		}
-		return camino;
-	}
-
-	private static boolean estaEnCamino(Celda veciC, Celda[] camino) {
-		for(int i = 0; i < camino.length; i++) {
-			if(camino[i] != null) {
-				if(veciC.getPosicion()[0] == camino[i].getPosicion()[0] && veciC.getPosicion()[1] == camino[i].getPosicion()[1]) {
-					return true;
-				}
+	private static boolean estaEnCamino(Celda veciC) {
+		for(int i = 0; i < CAMINO.size(); i++) {
+			if(veciC.getPosicion()[0] == CAMINO.get(i).getPosicion()[0] && veciC.getPosicion()[1] == CAMINO.get(i).getPosicion()[1]) {
+				return true;
 			}
 		}
 		return false;
 	}
 
-	public static void quitarPared(Celda nextC, Celda veciC, int direccion) {
+	public static Celda quitarPared(Celda nextC, int direccion) {
 		boolean[] vecinosNext = nextC.getVecinos();
-		boolean[] vecinosVeci = veciC.getVecinos();
 		
 		switch(direccion){
 		case NORTE:
 			vecinosNext[NORTE] = true;
-			vecinosVeci[SUR] = true;
 			break;
 		case ESTE:
 			vecinosNext[ESTE] = true;
-			vecinosVeci[OESTE] = true;
 			break;
 		case SUR:
 			vecinosNext[SUR] = true;
-			vecinosVeci[NORTE] = true;
 			break;
 		case OESTE:
 			vecinosNext[OESTE] = true;
-			vecinosVeci[ESTE] = true;
 			break;
 		}
 		
 		nextC.setVecinos(vecinosNext);
-		veciC.setVecinos(vecinosVeci);
+		return nextC;
 	}
 	
 	public static boolean celdaVisitada(Celda c, int direccion) {
