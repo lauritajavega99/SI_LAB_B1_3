@@ -80,7 +80,7 @@ public class LeerJSON {
         			vectorVecinos[k] = vecino.getAsBoolean();
                     k++;
                 }
-        		c.setVecinos(vectorVecinos);
+        		//c.setVecinos(vectorVecinos);
         		celdas[i][j] = c;
         	}
         }

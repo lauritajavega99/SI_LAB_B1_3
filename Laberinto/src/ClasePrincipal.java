@@ -13,7 +13,7 @@ public class ClasePrincipal {
 	}
 	
 	public static void construirLab() {
-		int N=3;
+		int N=4;
 		Laberinto laberinto = new Laberinto();
 		laberinto = introducirCeldas(laberinto, N); //Tamaño del laberinto
 		laberinto = wilson(laberinto);
@@ -30,18 +30,22 @@ public class ClasePrincipal {
 		lab.setColumnas(tamañoLab);
 		lab.setFilas(tamañoLab);
 		int[] posicion;
-		boolean[] vecinos = new boolean[4];
+		boolean[] vecinos = {false,false,false,false};
 		Celda celdas[][] = new Celda[tamañoLab][tamañoLab];
 		for (int i = 0; i < celdas.length; i++) {
 			for (int j = 0; j < celdas[0].length; j++) {
-				Celda c = new Celda();
+				
 				posicion = new int[2];
 				posicion[0] = i;
 				posicion[1] = j;
-				c.setPosicion(posicion);
-				c.setVecinos(vecinos);
-				c.setValor(0);
-				c.setVisitado(false);
+				Celda c = new Celda(posicion,0,false);
+				c.setVecinoN(false);
+				c.setVecinoE(false);
+				c.setVecinoS(false);
+				c.setVecinoO(false);
+				//c.setPosicion(posicion);
+				//c.setValor(0);
+				//c.setVisitado(false);
 				celdas[i][j] = c;
 			}
 		}
@@ -256,112 +260,51 @@ public class ClasePrincipal {
 		return false;
 	}
 
-	public static void quitarPared(Celda nextC,  int direccion) {
-		boolean[] vecinosNext = nextC.getVecinos();
-		
-		
-		switch(direccion){
-		case NORTE:
-			vecinosNext[NORTE] = true;
-			
-			break;
-		case ESTE:
-			vecinosNext[ESTE] = true;
-			
-			break;
-		case SUR:
-			vecinosNext[SUR] = true;
-			
-			break;
-		case OESTE:
-			vecinosNext[OESTE] = true;
-			
-			break;
-		}
-		
-		nextC.setVecinos(vecinosNext);
-		
-	}
-	
+
 	public static void quitarParedes(ArrayList<Celda> camino, int direccion, Laberinto lab ) {
-		boolean v[] = {false,false,false,false};
-		boolean v2[];
-		int aux = 5;
-	
+		
+		Celda c= new Celda();
+		Celda c2= new Celda();
 		for (int i=0; i<camino.size()-1;i++) {
 			
+			c=camino.get(i);
+			c2=camino.get(i+1);
 			
 			//NORTE 
 			if(camino.get(i).getPosicion()[0]-1==camino.get(i+1).getPosicion()[0] && camino.get(i).getPosicion()[1]==camino.get(i+1).getPosicion()[1]) {
 				
-				v[0]=camino.get(i).getVecinos()[0];
-				v[1]=camino.get(i).getVecinos()[1];
-				v[2]=camino.get(i).getVecinos()[2];
-				v[3]=camino.get(i).getVecinos()[3];
+				c.setVecinoN(true);
+				c2.setVecinoS(true);
 				
-				v[0]= true;
-				
-				if(aux !=5) {
-					v[aux] = true;
-				}
-				
-				lab.getCeldas()[camino.get(i).getPosicion()[0]][camino.get(i).getPosicion()[1]].setVecinos(v);
-				aux = 2;
 			}
 			//ESTE 
 			if(camino.get(i).getPosicion()[0]==camino.get(i+1).getPosicion()[0] && camino.get(i).getPosicion()[1]+1==camino.get(i+1).getPosicion()[1]) {
-				v[0]=camino.get(i).getVecinos()[0];
-				v[1]=camino.get(i).getVecinos()[1];
-				v[2]=camino.get(i).getVecinos()[2];
-				v[3]=camino.get(i).getVecinos()[3];
 				
-				v[1]= true;
+				c.setVecinoE(true);
+				c2.setVecinoO(true);;
 				
-				if(aux !=5) {
-					v[aux] = true;
-				}
 				
-				lab.getCeldas()[camino.get(i).getPosicion()[0]][camino.get(i).getPosicion()[1]].setVecinos(v);
-				aux = 3;
 			}
 			
 			//SUR 
 			
 			if(camino.get(i).getPosicion()[0]+1==camino.get(i+1).getPosicion()[0] && camino.get(i).getPosicion()[1]==camino.get(i+1).getPosicion()[1]) {
-				v[0]=camino.get(i).getVecinos()[0];
-				v[1]=camino.get(i).getVecinos()[1];
-				v[2]=camino.get(i).getVecinos()[2];
-				v[3]=camino.get(i).getVecinos()[3];
-				v[2]= true;
 				
-				if(aux !=5) {
-					v[aux] = true;
-				}
 				
-				lab.getCeldas()[camino.get(i).getPosicion()[0]][camino.get(i).getPosicion()[1]].setVecinos(v);
-				aux = 0;
+				c.setVecinoS(true);
+				c2.setVecinoN(true);
 			}
 			
 			// OESTE 
 			if(camino.get(i).getPosicion()[0]==camino.get(i+1).getPosicion()[0] && camino.get(i).getPosicion()[1]-1==camino.get(i+1).getPosicion()[1]) {
-				v[0]=camino.get(i).getVecinos()[0];
-				v[1]=camino.get(i).getVecinos()[1];
-				v[2]=camino.get(i).getVecinos()[2];
-				v[3]=camino.get(i).getVecinos()[3];
-				
-				v[3]= true;
-				
-				if(aux !=5) {
-					v[aux] = true;
-				}
-				
-				lab.getCeldas()[camino.get(i).getPosicion()[0]][camino.get(i).getPosicion()[1]].setVecinos(v);
-				aux = 1;
+			
+				c.setVecinoO(true);
+				c2.setVecinoE(true);
 				
 			}
 			}
 		
-		// para la ultima celda 
+	
 		
 	}
 	

@@ -3,13 +3,15 @@ import java.util.Arrays;
 public class Celda {
     
 	private int[] posicion;
-	private boolean[] vecinos;
 	private int valor;
 	private boolean visitado;
+	private boolean vecinoN;
+	private boolean vecinoS;
+	private boolean vecinoE;
+	private boolean vecinoO;
 	
-	public Celda(int[] posicion, boolean[] vecinos, int valor, boolean visitado) {
+	public Celda(int[] posicion, int valor, boolean visitado) {
 		this.posicion = posicion;
-		this.vecinos = vecinos;
 		this.valor = valor;
 		this.visitado = visitado;
 	}
@@ -24,14 +26,6 @@ public class Celda {
 
 	public void setPosicion(int[] posicion) {
 		this.posicion = posicion;
-	}
-
-	public boolean[] getVecinos() {
-		return vecinos;
-	}
-
-	public void setVecinos(boolean[] vecinos) {
-		this.vecinos = vecinos;
 	}
 
 	public int getValor() {
@@ -50,9 +44,41 @@ public class Celda {
 		this.visitado = visitado;
 	}
 
+	public boolean getVecinoN() {
+		return vecinoN;
+	}
+
+	public void setVecinoN(boolean vecinoN) {
+		this.vecinoN = vecinoN;
+	}
+
+	public boolean getVecinoS() {
+		return vecinoS;
+	}
+
+	public void setVecinoS(boolean vecinoS) {
+		this.vecinoS = vecinoS;
+	}
+
+	public boolean getVecinoE() {
+		return vecinoE;
+	}
+
+	public void setVecinoE(boolean vecinoE) {
+		this.vecinoE = vecinoE;
+	}
+
+	public boolean getVecinoO() {
+		return vecinoO;
+	}
+
+	public void setVecinoO(boolean vecinoO) {
+		this.vecinoO = vecinoO;
+	}
+
 	@Override
 	public String toString() {
-		return "Celda [posicion=" + Arrays.toString(posicion) + ", vecinos=" + Arrays.toString(vecinos) + ", valor="
+		return "Celda [posicion=" + Arrays.toString(posicion) + ", vecinos=" + "["+ vecinoN+", "+vecinoE+", " + vecinoS +", "+vecinoO+"]"+ "valor="
 				+ valor + ", visitado=" + visitado + "]";
 	}
 	

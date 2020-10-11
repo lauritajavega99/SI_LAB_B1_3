@@ -87,22 +87,22 @@ public class Dibujar {
         for (int i=0;i<N;i++) {
         	for(int j=0;j<N;j++) {
         		
-        		if(lab.getCeldas()[flab][j].getVecinos()[0]==true) {
+        		if(lab.getCeldas()[flab][j].getVecinoN()==true) {
         			System.out.print("BORRO " + "NORTE" + " "+ lab.getCeldas()[flab][j].getPosicion()[0]+" "+lab.getCeldas()[flab][j].getPosicion()[1]+"\n");
         			System.out.println((j+1)+" "+fd);
         			miLaberinto.borrar((j+1),fd,'N');
         		}
-        		if(lab.getCeldas()[flab][j].getVecinos()[1]==true) {
+        		if(lab.getCeldas()[flab][j].getVecinoE()==true) {
         			System.out.print("BORRO " + "ESTE" + " "+lab.getCeldas()[flab][j].getPosicion()[0]+" "+lab.getCeldas()[flab][j].getPosicion()[1]+"\n");
         			System.out.println((j+1)+" "+fd);
         			miLaberinto.borrar((j+1),fd,'E');
       		}
-        		if(lab.getCeldas()[flab][j].getVecinos()[2]==true) {
+        		if(lab.getCeldas()[flab][j].getVecinoS()==true) {
         			System.out.print("BORRO " + "SUR" + " "+lab.getCeldas()[flab][j].getPosicion()[0]+" "+lab.getCeldas()[flab][j].getPosicion()[1]+"\n");
         			System.out.println((j+1)+" "+fd);
         			miLaberinto.borrar((j+1),fd,'S');
       		}
-        		if(lab.getCeldas()[flab][j].getVecinos()[3]==true) {
+        		if(lab.getCeldas()[flab][j].getVecinoO()==true) {
         			System.out.print("BORRO " + "OESTE" + " "+lab.getCeldas()[flab][j].getPosicion()[0]+" "+lab.getCeldas()[flab][j].getPosicion()[1]+"\n");
         			System.out.println((j+1)+" "+fd);
       			  	miLaberinto.borrar((j+1),fd,'O');
@@ -113,13 +113,7 @@ public class Dibujar {
         	fd++;
         }
       
-		  //Borrar tres paredes
-       // miLaberinto.borrar(3,2,'S');  // Borra pared este de casilla 2,5 (columna 2, fila 5, empezando desde abajo y desde la izquierda)
-       // miLaberinto.borrar(3,2,'N');  // Borra pared norte de celda 5,4
-       // miLaberinto.borrar(1,1,'E'); // Borra pared sur de celda 1,10
-        //miLaberinto.borrar(1,1,'E');
-        //miLaberinto.borrar(2,2,'S');
-        //miLaberinto.borrar(3,2,'S');
+		
         miLaberinto.dibujar();
     }
 }
