@@ -57,14 +57,17 @@ public class LeerJSON {
 	public static void leerCeldas(int filas, int columnas, JsonObject cells, Laberinto laberinto) {
     	
     	String posCelda = "";
-    	int[] vectorPosicion = new int[2];
-    	boolean[] vectorVecinos = new boolean[4];
+    	int[] vectorPosicion;
+    	boolean[] vectorVecinos;
     	Celda[][] celdas = new Celda[filas][columnas];
-    	Celda c = new Celda();
+    	Celda c;
     	int k;
     	
     	for(int i = 0; i < filas ; i++) {
         	for (int j = 0; j < columnas ; j++) {
+        		vectorPosicion = new int[2];
+            	vectorVecinos = new boolean[4];
+            	c = new Celda();
         		posCelda = "("+i+","+j+")";
         		JsonObject cell = cells.get(posCelda).getAsJsonObject();
         		vectorPosicion[0] = i;
@@ -78,7 +81,6 @@ public class LeerJSON {
                     k++;
                 }
         		c.setVecinos(vectorVecinos);
-        		System.out.println(c.toString());
         		celdas[i][j] = c;
         	}
         }
