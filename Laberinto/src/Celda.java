@@ -78,7 +78,7 @@ public class Celda {
 
 	@Override
 	public String toString() {
-		return "Celda [posicion=" + Arrays.toString(posicion) + ", vecinos=" + "["+ vecinoN+", "+vecinoE+", " + vecinoS +", "+vecinoO+"]"+ "valor="
+		return "Celda [posicion=" + Arrays.toString(posicion) + ", vecinos=" + "["+ vecinoN+", "+vecinoE+", " + vecinoS +", "+vecinoO+"] "+ "valor="
 				+ valor + ", visitado=" + visitado + "]";
 	}
 	

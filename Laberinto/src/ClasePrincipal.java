@@ -13,7 +13,7 @@ public class ClasePrincipal {
 	}
 	
 	public static void construirLab() {
-		int N=90;
+		int N=30;
 		Laberinto laberinto = new Laberinto();
 		laberinto = introducirCeldas(laberinto, N); //Tamaño del laberinto
 		laberinto = wilson(laberinto);

@@ -58,7 +58,6 @@ public class LeerJSON {
     	
     	String posCelda = "";
     	int[] vectorPosicion;
-    	boolean[] vectorVecinos;
     	Celda[][] celdas = new Celda[filas][columnas];
     	Celda c;
     	int k;
@@ -66,7 +65,6 @@ public class LeerJSON {
     	for(int i = 0; i < filas ; i++) {
         	for (int j = 0; j < columnas ; j++) {
         		vectorPosicion = new int[2];
-            	vectorVecinos = new boolean[4];
             	c = new Celda();
         		posCelda = "("+i+","+j+")";
         		JsonObject cell = cells.get(posCelda).getAsJsonObject();
@@ -77,10 +75,20 @@ public class LeerJSON {
         		JsonArray vecinos = cell.get("neighbors").getAsJsonArray();
         		k = 0;
         		for (JsonElement vecino : vecinos) {
-        			vectorVecinos[k] = vecino.getAsBoolean();
+        			if(k == 0) {
+        				c.setVecinoN(vecino.getAsBoolean());
+        			}
+        			if(k == 1) {
+        				c.setVecinoE(vecino.getAsBoolean());
+        			}
+        			if(k == 2) {
+        				c.setVecinoS(vecino.getAsBoolean());
+        			}
+        			if(k == 3) {
+        				c.setVecinoO(vecino.getAsBoolean());
+        			}
                     k++;
                 }
-        		//c.setVecinos(vectorVecinos);
         		celdas[i][j] = c;
         	}
         }
