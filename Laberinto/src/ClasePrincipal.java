@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class ClasePrincipal {
 	
+	//Commit de prueba
 	private static final int NORTE = 0;
 	private static final int ESTE = 1;
 	private static final int SUR = 2;
