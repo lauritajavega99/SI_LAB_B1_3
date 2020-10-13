@@ -13,10 +13,10 @@ public class ClasePrincipal {
 	}
 
 	public static void construirLab() {
-		int n = 120;//columnas
-		int m=120;//filas
+		int n = 2;//columnas
+		int m=2;//filas
 		Laberinto laberinto = new Laberinto();
-		laberinto = introducirCeldas(laberinto, n);
+		laberinto = introducirCeldas(laberinto, n, m);
 		laberinto = wilson(laberinto);
 
 		mostrarCeldas(laberinto);
@@ -26,11 +26,11 @@ public class ClasePrincipal {
 
 	}
 
-	public static Laberinto introducirCeldas(Laberinto lab, int tamañoLab) { // Metodo que inicializa el laberinto.
-		lab.setColumnas(tamañoLab);
-		lab.setFilas(tamañoLab);
+	public static Laberinto introducirCeldas(Laberinto lab, int n , int m ) { // Metodo que inicializa el laberinto.
+		lab.setColumnas(n);
+		lab.setFilas(m);
 		int[] posicion;
-		Celda celdas[][] = new Celda[tamañoLab][tamañoLab];
+		Celda celdas[][] = new Celda[m][n];
 		for (int i = 0; i < celdas.length; i++) {
 			for (int j = 0; j < celdas[0].length; j++) {
 
@@ -246,9 +246,9 @@ public class ClasePrincipal {
 	public static boolean comprobarLimite(Laberinto lab, Celda c, int direccion) { // COMPROBAR LIMITES
 		if (direccion == NORTE && c.getPosicion()[0] - 1 > -1) {
 			return true;
-		} else if (direccion == ESTE && c.getPosicion()[1] + 1 < lab.getFilas()) {
+		} else if (direccion == ESTE && c.getPosicion()[1] + 1 < lab.getColumnas()) {
 			return true;
-		} else if (direccion == SUR && c.getPosicion()[0] + 1 < lab.getColumnas()) {
+		} else if (direccion == SUR && c.getPosicion()[0] + 1 < lab.getFilas()) {
 			return true;
 		} else if (direccion == OESTE && c.getPosicion()[1] - 1 > -1) {
 			return true;
