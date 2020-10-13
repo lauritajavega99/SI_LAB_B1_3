@@ -21,7 +21,7 @@ public class LeerJSON {
     	Laberinto lab = new Laberinto();
     	
 		lab = leerJson();
-		d.dibujar(lab, lab.getFilas());
+		d.dibujar(lab, lab.getFilas(),lab.getColumnas());
     }
     
     public static Laberinto leerJson() {

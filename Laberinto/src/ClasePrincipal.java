@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class ClasePrincipal {
 
@@ -13,7 +13,8 @@ public class ClasePrincipal {
 	}
 
 	public static void construirLab() {
-		int n = 30;
+		int n = 120;//columnas
+		int m=120;//filas
 		Laberinto laberinto = new Laberinto();
 		laberinto = introducirCeldas(laberinto, n);
 		laberinto = wilson(laberinto);
@@ -21,7 +22,7 @@ public class ClasePrincipal {
 		mostrarCeldas(laberinto);
 
 		Dibujar d = new Dibujar();
-		d.dibujar(laberinto, n);
+		d.dibujar(laberinto, m , n);
 
 	}
 
@@ -50,6 +51,7 @@ public class ClasePrincipal {
 
 	public static Laberinto wilson(Laberinto lab) {
 		Celda nextC, veciC, iniC = new Celda();
+		Random r = new Random();
 		Celda[][] celdas = lab.getCeldas();
 
 		if (esComienzo(lab)) { // true si estan todas las celdas NO visitadas
@@ -72,7 +74,7 @@ public class ClasePrincipal {
 			camino.add(nextC);
 
 			do { // HAY QUE HACER UN METODO Y UNICAMENTE DIFERENCIAR LA DIRECCION POR EL RAMDON
-				direccion = (int) Math.floor(Math.random() * 4);
+				direccion = r.nextInt(4);
 				if (direccion == NORTE && comprobarLimite(lab, nextC, NORTE)) { // TRUE SI ESTÁ DENTRO DEL LIMITE
 					
 					veciC = celdas[nextC.getPosicion()[0] - 1][nextC.getPosicion()[1]];
@@ -258,9 +260,11 @@ public class ClasePrincipal {
 	public static Celda celdaAleatoria(Laberinto lab) { // NOS DEVUELVE UNA CELDA ALEATORIA NO VISITADA
 		Celda[][] celdas = lab.getCeldas();
 		int fila, columna;
+		Random r = new Random();
+		Random p= new Random();
 		while (true) {
-			fila = (int) Math.floor(Math.random() * lab.getFilas());
-			columna = (int) Math.floor(Math.random() * lab.getColumnas());
+			fila = r.nextInt(lab.getFilas());
+			columna =p.nextInt(lab.getColumnas());
 			if (!celdas[fila][columna].isVisitado()) {
 				break;
 			}
