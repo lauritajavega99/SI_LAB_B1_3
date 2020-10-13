@@ -14,7 +14,7 @@ public class ClasePrincipal {
 	}
 	
 	public static void construirLab() {
-		int N=4;
+		int N=2;
 		Laberinto laberinto = new Laberinto();
 		laberinto = introducirCeldas(laberinto, N); //Tamaño del laberinto
 		laberinto = wilson(laberinto);
@@ -24,6 +24,9 @@ public class ClasePrincipal {
 		Dibujar d = new Dibujar();
 		
 		d.dibujar(laberinto, N);
+		
+		escribirJSON ej = new escribirJSON();
+		ej.escribirJson(laberinto);
 		
 	}
 	

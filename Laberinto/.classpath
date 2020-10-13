@@ -6,9 +6,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-
-	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/gson-2.8.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Pedro/Downloads/stdlib.jar"/>
-
+	<classpathentry kind="lib" path="C:/Users/05724539/Desktop/4º Ingeniería Informática/1er Cuatrimestre/Sistemas Inteligentes/Laboratorio/Practica Laberinto/Librerias/gson-2.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/05724539/Desktop/4º Ingeniería Informática/1er Cuatrimestre/Sistemas Inteligentes/Laboratorio/Practica Laberinto/Librerias/stdlib.jar"/>
+	<classpathentry kind="lib" path="C:/Users/05724539/Desktop/4º Ingeniería Informática/1er Cuatrimestre/Sistemas Inteligentes/Laboratorio/Practica Laberinto/Librerias/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
