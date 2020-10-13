@@ -17,13 +17,16 @@ public class LeerJSON {
 
     public static void main(String[] args) {
     	
-		leerJson();
-		
+    	Dibujar d = new Dibujar();
+    	Laberinto lab = new Laberinto();
+    	
+		lab = leerJson();
+		d.dibujar(lab, lab.getFilas());
     }
     
-    public static void leerJson() {
+    public static Laberinto leerJson() {
     	
-    	File archivo = new File ("src/celdas.json");
+    	File archivo = new File ("src/puzzle_15x20.json");
     	FileReader archivojson = null;
     	
 		try {
@@ -40,25 +43,26 @@ public class LeerJSON {
         
         JsonObject cells = gsonObj.get("cells").getAsJsonObject();
         
-        leerLaberinto(filas, columnas, cells);
+        Laberinto lab = leerLaberinto(filas, columnas, cells);
         
+        return lab;
         
     }
     
-    public static void leerLaberinto(int filas, int columnas, JsonObject cells) {
+    public static Laberinto leerLaberinto(int filas, int columnas, JsonObject cells) {
     	Laberinto laberinto = new Laberinto();
     	
     	laberinto.setFilas(filas);
     	laberinto.setColumnas(columnas);
-    	leerCeldas(filas, columnas, cells, laberinto);
+    	laberinto = leerCeldas(filas, columnas, cells, laberinto);
+    	return laberinto;
     	
     }
     
-	public static void leerCeldas(int filas, int columnas, JsonObject cells, Laberinto laberinto) {
+	public static Laberinto leerCeldas(int filas, int columnas, JsonObject cells, Laberinto laberinto) {
     	
-    	String posCelda = "";
+    	String posCelda = ""; 
     	int[] vectorPosicion;
-    	boolean[] vectorVecinos;
     	Celda[][] celdas = new Celda[filas][columnas];
     	Celda c;
     	int k;
@@ -66,9 +70,8 @@ public class LeerJSON {
     	for(int i = 0; i < filas ; i++) {
         	for (int j = 0; j < columnas ; j++) {
         		vectorPosicion = new int[2];
-            	vectorVecinos = new boolean[4];
             	c = new Celda();
-        		posCelda = "("+i+","+j+")";
+        		posCelda = "("+i+", "+j+")";
         		JsonObject cell = cells.get(posCelda).getAsJsonObject();
         		vectorPosicion[0] = i;
         		vectorPosicion[1] = j;
@@ -77,20 +80,32 @@ public class LeerJSON {
         		JsonArray vecinos = cell.get("neighbors").getAsJsonArray();
         		k = 0;
         		for (JsonElement vecino : vecinos) {
-        			vectorVecinos[k] = vecino.getAsBoolean();
+        			if(k == 0) {
+        				c.setVecinoN(vecino.getAsBoolean());
+        			}
+        			if(k == 1) {
+        				c.setVecinoE(vecino.getAsBoolean());
+        			}
+        			if(k == 2) {
+        				c.setVecinoS(vecino.getAsBoolean());
+        			}
+        			if(k == 3) {
+        				c.setVecinoO(vecino.getAsBoolean());
+        			}
                     k++;
                 }
-        		//c.setVecinos(vectorVecinos);
         		celdas[i][j] = c;
         	}
         }
     	
     	laberinto.setCeldas(celdas);
-    	System.out.println("--------------------------------");
+    	/*System.out.println("--------------------------------");
     	for(int w = 0; w < celdas.length ; w++) {
         	for (int q = 0; q < celdas[0].length ; q++) {
         		System.out.println(celdas[w][q]); 
         	}
-    	}
+    	}*/
+    	return laberinto;
     }
+	
 }
