@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class Celda {
-    
+
 	private int[] posicion;
 	private int valor;
 	private boolean visitado;
@@ -9,15 +9,15 @@ public class Celda {
 	private boolean vecinoS;
 	private boolean vecinoE;
 	private boolean vecinoO;
-	
+
 	public Celda(int[] posicion, int valor, boolean visitado) {
 		this.posicion = posicion;
 		this.valor = valor;
 		this.visitado = visitado;
 	}
-	
+
 	public Celda() {
-		
+
 	}
 
 	public int[] getPosicion() {
@@ -78,10 +78,8 @@ public class Celda {
 
 	@Override
 	public String toString() {
-		return "Celda [posicion=" + Arrays.toString(posicion) + ", vecinos=" + "["+ vecinoN+", "+vecinoE+", " + vecinoS +", "+vecinoO+"] "+ "valor="
-				+ valor + ", visitado=" + visitado + "]";
+		return "Celda [posicion=" + Arrays.toString(posicion) + ", vecinos=" + "[" + vecinoN + ", " + vecinoE + ", "
+				+ vecinoS + ", " + vecinoO + "] " + "valor=" + valor + ", visitado=" + visitado + "]";
 	}
-	
+
 }
-
-

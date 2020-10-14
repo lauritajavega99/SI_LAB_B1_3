@@ -1,17 +1,17 @@
 import java.util.Arrays;
 
 public class Laberinto {
-	
+
 	private int filas;
 	private int columnas;
 	private Celda[][] celdas;
-	
+
 	public Laberinto(int filas, int columnas, Celda[][] celdas) {
 		this.filas = filas;
 		this.columnas = columnas;
 		this.celdas = celdas;
 	}
-	
+
 	public Laberinto() {
 	}
 
@@ -43,8 +43,5 @@ public class Laberinto {
 	public String toString() {
 		return "Laberinto [filas=" + filas + ", columnas=" + columnas + ", celdas=" + Arrays.toString(celdas) + "]";
 	}
-	
-	
-	
-}
 
+}

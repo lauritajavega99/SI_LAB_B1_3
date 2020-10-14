@@ -13,8 +13,8 @@ public class ClasePrincipal {
 	}
 
 	public static void construirLab() {
-		int n = 2;//columnas
-		int m=2;//filas
+		int n = 20;// columnas
+		int m = 20;// filas
 		Laberinto laberinto = new Laberinto();
 		laberinto = introducirCeldas(laberinto, n, m);
 		laberinto = wilson(laberinto);
@@ -23,13 +23,13 @@ public class ClasePrincipal {
 
 		Dibujar d = new Dibujar();
 		d.dibujar(laberinto, m, n);
-		
+
 		EscribirJSON e = new EscribirJSON();
-		e.EscribirJson(laberinto);
+		e.escribirJSON(laberinto);
 
 	}
 
-	public static Laberinto introducirCeldas(Laberinto lab, int n , int m ) { // Metodo que inicializa el laberinto.
+	public static Laberinto introducirCeldas(Laberinto lab, int n, int m) { // Metodo que inicializa el laberinto.
 		lab.setColumnas(n);
 		lab.setFilas(m);
 		int[] posicion;

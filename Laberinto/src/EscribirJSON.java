@@ -1,69 +1,85 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.StringWriter;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.File;
-import java.io.BufferedReader;
 import java.io.FileWriter;
-import java.util.Iterator;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 public class EscribirJSON {
 
-	 
-	public void EscribirJson(Laberinto lab) {
+	public EscribirJSON() {
 
-		JSONObject innerObj = new JSONObject();
-		Celda[][] c = lab.getCeldas();
-		for (int i = 0; i < c.length; i++) {
-			for (int j = 0; j < c[0].length; j++) {
-				innerObj.put("(" + Integer.toString(i) + ", " + Integer.toString(j) + ")",
-						"value:" + Integer.toString(c[i][j].getValor())+","+"neighbours:["+c[i][j].getVecinoN()+","+c[i][j].getVecinoE()+","+c[i][j].getVecinoS()+","+c[i][j].getVecinoO()+"]");
-				
-			}
-		}
-		
-		JSONObject obj = new JSONObject();
-		obj.put("cells", innerObj);
-		obj.put("rows", lab.getFilas());
-		obj.put("cols", lab.getColumnas());
-		obj.put("max_n", new Integer(4));
+	}
 
-		JSONArray list = new JSONArray();
-		list.add("[-1,0]");
-		list.add("[0,1]");
-		list.add("[1,0]");
-		list.add("[0,-1]");
+	public void escribirJSON(Laberinto lab) {
 
-		obj.put("mov", list);
-
-		JSONArray list1 = new JSONArray();
-		list1.add("N");
-		list1.add("E");
-		list1.add("S");
-		list1.add("0");
-
-		obj.put("id_mov", list1);
-
-	
+		JsonObject gsonObj = new JsonObject();
+		JsonObject gsonCells = introducirCeldas(lab);
+		gsonObj.addProperty("rows", lab.getFilas());
+		gsonObj.addProperty("cols", lab.getColumnas());
+		gsonObj.addProperty("max_n", 4);
+		gsonObj.add("mov", introducirMov());
+		gsonObj.add("id_mov", introducirIDMov());
+		gsonObj.add("cells", gsonCells);
 
 		try {
 			FileWriter file = new FileWriter("C:\\Users\\USUARIO\\git\\SI_LAB_B1_3\\Laberinto\\src\\prueba.json");
-			file.write(obj.toJSONString());
+			file.write(gsonObj.toString());
 			file.flush();
 			file.close();
 
 		} catch (Exception ex) {
 			System.out.println("Error: " + ex.toString());
-		} finally {
-			System.out.print(obj);
 		}
-
 	}
 
+	private JsonElement introducirIDMov() {
+		JsonArray idmov = new JsonArray();
+		idmov.add("N");
+		idmov.add("E");
+		idmov.add("S");
+		idmov.add("O");
+		return idmov;
+	}
+
+	private JsonElement introducirMov() {
+		JsonArray mov = new JsonArray();
+		JsonArray mov1 = new JsonArray();
+		JsonArray mov2 = new JsonArray();
+		JsonArray mov3 = new JsonArray();
+		JsonArray mov4 = new JsonArray();
+		mov1.add(-1);
+		mov1.add(0);
+		mov2.add(0);
+		mov2.add(1);
+		mov3.add(1);
+		mov3.add(0);
+		mov4.add(0);
+		mov4.add(-1);
+		mov.add(mov1);
+		mov.add(mov2);
+		mov.add(mov3);
+		mov.add(mov4);
+		return mov;
+	}
+
+	private static JsonObject introducirCeldas(Laberinto lab) {
+		JsonObject posicion = new JsonObject();
+		Celda[][] celdas = lab.getCeldas();
+		String pos = "";
+		for (int i = 0; i < celdas.length; i++) {
+			for (int j = 0; j < celdas[0].length; j++) {
+				JsonObject valores = new JsonObject();
+				JsonArray vecinos = new JsonArray();
+				valores.addProperty("value", celdas[i][j].getValor());
+				vecinos.add(celdas[i][j].getVecinoN());
+				vecinos.add(celdas[i][j].getVecinoE());
+				vecinos.add(celdas[i][j].getVecinoS());
+				vecinos.add(celdas[i][j].getVecinoO());
+				valores.add("neighbors", vecinos);
+				pos = "(" + i + ", " + j + ")";
+				posicion.add(pos, valores);
+			}
+		}
+		return posicion;
+	}
 }
