@@ -96,11 +96,7 @@ public class LeerJSON {
 		}
 
 		laberinto.setCeldas(celdas);
-		/*
-		 * System.out.println("--------------------------------"); for(int w = 0; w <
-		 * celdas.length ; w++) { for (int q = 0; q < celdas[0].length ; q++) {
-		 * System.out.println(celdas[w][q]); } }
-		 */
+		
 		return laberinto;
 	}
 
