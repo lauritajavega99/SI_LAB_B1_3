@@ -78,7 +78,7 @@ public class Dibujar {
         StdDraw.show(0);
     }
 	 
-  public  void dibujar(Laberinto lab, int N , int M) {
+  public  void dibujar(Laberinto lab, int M , int N) {
        // M ==FILAS N==COLUMNAS
         Dibujar miLaberinto = new Dibujar(N,M);
         int fd=1;
