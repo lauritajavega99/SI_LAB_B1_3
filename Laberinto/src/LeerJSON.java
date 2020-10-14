@@ -13,16 +13,20 @@ import com.google.gson.JsonParser;
 
 public class LeerJSON {
 
-	public static void main(String[] args) {
+	public LeerJSON() {
+		
+	}
+	
+	/*public static void main(String[] args) {
 
 		Dibujar d = new Dibujar();
 		Laberinto lab = new Laberinto();
 
 		lab = leerJson();
 		d.dibujar(lab, lab.getFilas(), lab.getColumnas());
-	}
+	}*/
 
-	public static Laberinto leerJson() {
+	public Laberinto leerJson() {
 
 		File archivo = new File("src/prueba.json");
 		FileReader archivojson = null;

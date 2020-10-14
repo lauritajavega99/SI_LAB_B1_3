@@ -1,11 +1,4 @@
 
-/*************************************************************************
- Código para generar y dibujar un laberinto, utilizable (o no) como punto 
- de partida de la práctica 2 de APD (2013-14).
- Código prestado del Dpto. de Informática de la Universidad de Princeton.
- El programa requiere la biblioteca StdDraw: 
- http://introcs.cs.princeton.edu/java/stdlib/StdDraw.java.html
- *************************************************************************/
 import java.util.*;
 
 public class Dibujar {

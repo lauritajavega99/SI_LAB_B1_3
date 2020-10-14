@@ -8,8 +8,46 @@ public class ClasePrincipal {
 	private static final int OESTE = 3;
 
 	public static void main(String[] args) {
+		menu();
+	}
+	
+	private static void menu() {
+		Scanner sn = new Scanner(System.in);
+        boolean salir = false;
+        int opcion; //Guardaremos la opcion del usuario
+        while (!salir) {
+        	System.out.println("1. Crear Laberinto Aleatorio");
+			System.out.println("2. Leer y Dibujar Laberinto");
+			System.out.println("0. Salir");
+            try {
+                System.out.println("Escribe una de las opciones");
+                opcion = sn.nextInt();
+                switch (opcion) {
+                case 1:
+    				construirLab();
+    				salir = true;
+    				break;
+    			case 2:
+    				Dibujar d = new Dibujar();
+    				Laberinto lab = new Laberinto();
+    				LeerJSON l = new LeerJSON();
 
-		construirLab();
+    				lab = l.leerJson();
+    				d.dibujar(lab, lab.getFilas(), lab.getColumnas());
+    				
+    				salir = true;
+    				break;
+    			case 0:
+    				salir = true;
+    				break;
+    			default:
+    				System.out.println("Solo números entre 1 y 2");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Debes insertar un número");
+                sn.next();
+            }
+        }
 	}
 
 	public static void construirLab() {

@@ -22,7 +22,7 @@ public class EscribirJSON {
 		gsonObj.add("cells", gsonCells);
 
 		try {
-			FileWriter file = new FileWriter("C:\\Users\\USUARIO\\git\\SI_LAB_B1_3\\Laberinto\\src\\prueba.json");
+			FileWriter file = new FileWriter("C:\\Users\\USUARIO\\git\\SI_LAB_B1_3\\Laberinto\\src\\lab"+lab.getFilas()+"x"+lab.getColumnas()+".json");
 			file.write(gsonObj.toString());
 			file.flush();
 			file.close();
