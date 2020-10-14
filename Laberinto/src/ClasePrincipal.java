@@ -13,8 +13,8 @@ public class ClasePrincipal {
 	}
 
 	public static void construirLab() {
-		int n = 120;//columnas
-		int m=120;//filas
+		int n = 8; // columnas
+		int m = 8; // filas
 		Laberinto laberinto = new Laberinto();
 		laberinto = introducirCeldas(laberinto, n);
 		laberinto = wilson(laberinto);
@@ -22,7 +22,10 @@ public class ClasePrincipal {
 		mostrarCeldas(laberinto);
 
 		Dibujar d = new Dibujar();
-		d.dibujar(laberinto, m , n);
+		d.dibujar(laberinto, m, n);
+		
+		EscribirJSON e = new EscribirJSON();
+		e.EscribirJson(laberinto);
 
 	}
 
@@ -66,7 +69,7 @@ public class ClasePrincipal {
 			System.out.println("El laberinto esta completo");
 			return lab;
 
-		} else { 	//ITERACIONES DEL CAMINO
+		} else { // ITERACIONES DEL CAMINO
 			nextC = celdaAleatoria(lab);
 			celdas[nextC.getPosicion()[0]][nextC.getPosicion()[1]] = nextC;
 			int direccion;
@@ -76,9 +79,9 @@ public class ClasePrincipal {
 			do { // HAY QUE HACER UN METODO Y UNICAMENTE DIFERENCIAR LA DIRECCION POR EL RAMDON
 				direccion = r.nextInt(4);
 				if (direccion == NORTE && comprobarLimite(lab, nextC, NORTE)) { // TRUE SI ESTÁ DENTRO DEL LIMITE
-					
+
 					veciC = celdas[nextC.getPosicion()[0] - 1][nextC.getPosicion()[1]];
-					camino = caminoWilson(veciC, camino); //PARA TRATAR EL CAMINO Y LOS BUCLES
+					camino = caminoWilson(veciC, camino); // PARA TRATAR EL CAMINO Y LOS BUCLES
 					nextC = cogerUltimaCelda(camino); // OBTENGO LA ULTIMA DE LA LISTA
 					if (celdaVisitada(veciC, NORTE)) { // TRUE SI LA SIGUIENTE EN LA DIRECCION ESTA VISITADA
 						camino = ponerAVisitadas(camino);
@@ -89,7 +92,7 @@ public class ClasePrincipal {
 				} else if (direccion == ESTE && comprobarLimite(lab, nextC, ESTE)) {
 
 					veciC = celdas[nextC.getPosicion()[0]][nextC.getPosicion()[1] + 1];
-					camino = caminoWilson(veciC, camino); //PARA TRATAR EL CAMINO Y LOS BUCLES
+					camino = caminoWilson(veciC, camino); // PARA TRATAR EL CAMINO Y LOS BUCLES
 					nextC = cogerUltimaCelda(camino); // OBTENGO LA ULTIMA DE LA LISTA
 					if (celdaVisitada(veciC, ESTE)) { // TRUE SI LA SIGUIENTE EN LA DIRECCION ESTA VISITADA
 						camino = ponerAVisitadas(camino);
@@ -100,7 +103,7 @@ public class ClasePrincipal {
 				} else if (direccion == SUR && comprobarLimite(lab, nextC, SUR)) {
 
 					veciC = celdas[nextC.getPosicion()[0] + 1][nextC.getPosicion()[1]];
-					camino = caminoWilson(veciC, camino); //PARA TRATAR EL CAMINO Y LOS BUCLES
+					camino = caminoWilson(veciC, camino); // PARA TRATAR EL CAMINO Y LOS BUCLES
 					nextC = cogerUltimaCelda(camino); // OBTENGO LA ULTIMA DE LA LISTA
 					if (celdaVisitada(veciC, SUR)) { // TRUE SI LA SIGUIENTE EN LA DIRECCION ESTA VISITADA
 						camino = ponerAVisitadas(camino);
@@ -111,7 +114,7 @@ public class ClasePrincipal {
 				} else if (direccion == OESTE && comprobarLimite(lab, nextC, OESTE)) {
 
 					veciC = celdas[nextC.getPosicion()[0]][nextC.getPosicion()[1] - 1];
-					camino = caminoWilson(veciC, camino); //PARA TRATAR EL CAMINO Y LOS BUCLES
+					camino = caminoWilson(veciC, camino); // PARA TRATAR EL CAMINO Y LOS BUCLES
 					nextC = cogerUltimaCelda(camino); // OBTENGO LA ULTIMA DE LA LISTA
 					if (celdaVisitada(veciC, OESTE)) { // TRUE SI LA SIGUIENTE EN LA DIRECCION ESTA VISITADA
 						camino = ponerAVisitadas(camino);
@@ -127,7 +130,7 @@ public class ClasePrincipal {
 		if (estaEnCamino(veciC, camino)) { // DETECTAR BUCLES
 			camino = quitarDeCamino(camino, veciC); // QUITO DEL CAMINO LAS DEL BUCLE
 		} else {
-			camino = meterEnCamino(veciC, camino); 
+			camino = meterEnCamino(veciC, camino);
 		}
 		return camino;
 	}
@@ -163,15 +166,14 @@ public class ClasePrincipal {
 		}
 		return camino;
 	}
-	
-	/* METODO QUE PERMITE MOSTAR EL CAMINO SEGUIDO POR WILSON
-	private static void mostrarCamino(ArrayList<Celda> camino) {
-		System.out.println("CAMINO");
-		for (int i = 0; i < camino.size(); i++) {
-			System.out.print(camino.get(i).getPosicion()[0] + " " + camino.get(i).getPosicion()[1] + "\n");
-		}
-	}
-	*/
+
+	/*
+	 * METODO QUE PERMITE MOSTAR EL CAMINO SEGUIDO POR WILSON private static void
+	 * mostrarCamino(ArrayList<Celda> camino) { System.out.println("CAMINO"); for
+	 * (int i = 0; i < camino.size(); i++) {
+	 * System.out.print(camino.get(i).getPosicion()[0] + " " +
+	 * camino.get(i).getPosicion()[1] + "\n"); } }
+	 */
 
 	private static boolean estaEnCamino(Celda veciC, ArrayList<Celda> camino) {
 		for (int i = 0; i < camino.size(); i++) {
@@ -261,10 +263,10 @@ public class ClasePrincipal {
 		Celda[][] celdas = lab.getCeldas();
 		int fila, columna;
 		Random r = new Random();
-		Random p= new Random();
+		Random p = new Random();
 		while (true) {
 			fila = r.nextInt(lab.getFilas());
-			columna =p.nextInt(lab.getColumnas());
+			columna = p.nextInt(lab.getColumnas());
 			if (!celdas[fila][columna].isVisitado()) {
 				break;
 			}
