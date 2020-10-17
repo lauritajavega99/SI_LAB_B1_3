@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -13,16 +12,11 @@ import com.google.gson.JsonParser;
 
 public class LeerJSON {
 
-	public static void main(String[] args) {
+	public LeerJSON() {
 
-		Dibujar d = new Dibujar();
-		Laberinto lab = new Laberinto();
-
-		lab = leerJson();
-		d.dibujar(lab, lab.getFilas(), lab.getColumnas());
 	}
 
-	public static Laberinto leerJson() {
+	public Laberinto leerJson() {
 
 		File archivo = new File("src/prueba.json");
 		FileReader archivojson = null;
@@ -96,7 +90,7 @@ public class LeerJSON {
 		}
 
 		laberinto.setCeldas(celdas);
-		
+
 		return laberinto;
 	}
 

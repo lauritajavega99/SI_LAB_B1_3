@@ -8,24 +8,80 @@ public class ClasePrincipal {
 	private static final int OESTE = 3;
 
 	public static void main(String[] args) {
+		menu();
+	}
 
-		construirLab();
+	private static void menu() {
+		Scanner sn = new Scanner(System.in);
+		boolean salir = false;
+		int opcion; // Guardaremos la opcion del usuario
+		while (!salir) {
+			System.out.println("Introduce una de las opciones disponibles:");
+			System.out.println("1. Crear un laberinto aleatorio");
+			System.out.println("2. Leer y dibujar laberinto");
+			System.out.println("0. Salir");
+			try {
+
+				opcion = sn.nextInt();
+				switch (opcion) {
+				case 1:
+					construirLab();
+					salir = true;
+					break;
+				case 2:
+					Dibujar d = new Dibujar();
+					Laberinto lab = new Laberinto();
+					LeerJSON l = new LeerJSON();
+
+					lab = l.leerJson();
+					d.dibujar(lab, lab.getFilas(), lab.getColumnas());
+
+					salir = true;
+					break;
+				case 0:
+					salir = true;
+					System.out.println("Saliendo..");
+					break;
+				default:
+					System.out.println("Opción no válida.");
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Debes insertar un número.");
+				sn.next();
+			}
+		}
 	}
 
 	public static void construirLab() {
-		int n = 20;// columnas
-		int m = 20;// filas
-		Laberinto laberinto = new Laberinto();
-		laberinto = introducirCeldas(laberinto, n, m);
-		laberinto = wilson(laberinto);
+		Scanner sn = new Scanner(System.in);
+		boolean salir = false;
+		while (!salir) {
+			try {
 
-		mostrarCeldas(laberinto);
+				System.out.println("Introduce el número de filas:");
+				int m = sn.nextInt();// filas
+				System.out.println("Introduce el número de columnas:");
+				int n = sn.nextInt();// columnas
 
-		Dibujar d = new Dibujar();
-		d.dibujar(laberinto, m, n);
+				Laberinto laberinto = new Laberinto();
+				laberinto = introducirCeldas(laberinto, n, m);
+				laberinto = wilson(laberinto);
 
-		EscribirJSON e = new EscribirJSON();
-		e.escribirJSON(laberinto);
+				mostrarCeldas(laberinto);
+
+				Dibujar d = new Dibujar();
+				d.dibujar(laberinto, m, n);
+
+				EscribirJSON e = new EscribirJSON();
+				e.escribirJSON(laberinto);
+				salir = true;
+
+			} catch (InputMismatchException e) {
+				System.out.println("Debes insertar un número.\n");
+				sn.next();
+
+			}
+		}
 
 	}
 
@@ -166,14 +222,6 @@ public class ClasePrincipal {
 		}
 		return camino;
 	}
-
-	/*
-	 * METODO QUE PERMITE MOSTAR EL CAMINO SEGUIDO POR WILSON private static void
-	 * mostrarCamino(ArrayList<Celda> camino) { System.out.println("CAMINO"); for
-	 * (int i = 0; i < camino.size(); i++) {
-	 * System.out.print(camino.get(i).getPosicion()[0] + " " +
-	 * camino.get(i).getPosicion()[1] + "\n"); } }
-	 */
 
 	private static boolean estaEnCamino(Celda veciC, ArrayList<Celda> camino) {
 		for (int i = 0; i < camino.size(); i++) {

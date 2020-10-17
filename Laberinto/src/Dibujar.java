@@ -1,5 +1,3 @@
-
-
 import java.util.*;
 
 public class Dibujar {
@@ -55,9 +53,6 @@ public class Dibujar {
 	// dibuja el laberinto
 	public void dibujar() {
 		StdDraw.setPenColor(StdDraw.RED);
-		// StdDraw.filledCircle(N + 0.5, N + 0.5, 0.375);
-		// StdDraw.filledCircle(1.5, 1.5, 0.375);
-
 		StdDraw.setPenColor(StdDraw.BLACK);
 		for (int x = 1; x <= N; x++) {
 			for (int y = 1; y <= M; y++) {
