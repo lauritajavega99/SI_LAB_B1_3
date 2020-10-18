@@ -9,7 +9,7 @@ public class Celda {
 	private boolean vecinoS;
 	private boolean vecinoE;
 	private boolean vecinoO;
-		
+
 	public Celda(int[] posicion, int valor, boolean visitado) {
 		this.posicion = posicion;
 		this.valor = valor;
