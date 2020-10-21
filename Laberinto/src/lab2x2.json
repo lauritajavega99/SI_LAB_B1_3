@@ -1,0 +1,1 @@
+{"rows":2,"cols":2,"max_n":4,"mov":[[-1,0],[0,1],[1,0],[0,-1]],"id_mov":["N","E","S","O"],"cells":{"(0, 0)":{"value":0,"neighbors":[false,false,true,false]},"(0, 1)":{"value":0,"neighbors":[false,false,true,false]},"(1, 0)":{"value":0,"neighbors":[true,true,false,false]},"(1, 1)":{"value":0,"neighbors":[true,false,false,true]}}}

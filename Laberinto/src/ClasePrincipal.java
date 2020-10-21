@@ -14,6 +14,8 @@ public class ClasePrincipal {
 	private static void menu() {
 		Scanner sn = new Scanner(System.in);
 		boolean salir = false;
+		boolean s = false;
+		String nombre;
 		int opcion; // Guardaremos la opcion del usuario
 		while (!salir) {
 			System.out.println("Introduce una de las opciones disponibles:");
@@ -33,11 +35,21 @@ public class ClasePrincipal {
 					Laberinto lab = new Laberinto();
 					LeerJSON l = new LeerJSON();
 
-					lab = l.leerJson();
-					d.dibujar(lab, lab.getFilas(), lab.getColumnas());
+					System.out.println("Introduzca el nombre del laberinto que desea leer:");
+					nombre = sn.next();
 
+					lab = l.leerJson(nombre);
+					try {
+						d.dibujar(lab, lab.getFilas(), lab.getColumnas());
+
+					} catch (NullPointerException e) {
+						System.out
+								.println("No se ha podido crear el laberinto debido a una inconsistencia del fichero.");
+					}
 					salir = true;
+
 					break;
+
 				case 0:
 					salir = true;
 					System.out.println("Saliendo..");
@@ -183,8 +195,8 @@ public class ClasePrincipal {
 	}
 
 	private static ArrayList<Celda> caminoWilson(Celda veciC, ArrayList<Celda> camino) {
-		if (estaEnCamino(veciC, camino)) { // DETECTAR BUCLES
-			camino = quitarDeCamino(camino, veciC); // QUITO DEL CAMINO LAS DEL BUCLE
+		if (estaEnCamino(veciC, camino)) {
+			camino = quitarDeCamino(camino, veciC);
 		} else {
 			camino = meterEnCamino(veciC, camino);
 		}
