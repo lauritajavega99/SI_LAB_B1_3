@@ -15,9 +15,9 @@ public class LeerJSON {
 	public LeerJSON() {
 	}
 
-	public Laberinto leerJson() {
+	public Laberinto leerJson(String cadena) {
 
-		File archivo = new File("src/prueba.json");
+		File archivo = new File("src/" + cadena + ".json");
 		FileReader archivojson = null;
 
 		try {
@@ -35,8 +35,63 @@ public class LeerJSON {
 		JsonObject cells = gsonObj.get("cells").getAsJsonObject();
 		Laberinto lab = leerLaberinto(filas, columnas, cells);
 
-		return lab;
+		if (verificarVecinos(lab)) {
 
+			return lab;
+		} else {
+			//Incosistencia del fichero
+			return null;
+		}
+	}
+
+	public static boolean verificarVecinos(Laberinto lab) {
+		Celda[][] celdas = lab.getCeldas();
+		boolean valido = true;
+		for (int i = 0; i < celdas.length; i++) {
+			for (int j = 0; j < celdas[0].length; j++) {
+				if (celdas[i][j].getPosicion()[0] - 1 > -1) { // NORTE
+
+					if (celdas[i][j].getVecinoN() != celdas[i - 1][j].getVecinoS()) {
+						System.out.println("Se ha encontrado un error de inconsistencia en la celda [" + i + "][" + j
+								+ "] con el vecino NORTE.");
+						valido = false;
+						break;
+					}
+
+				} else if (celdas[i][j].getPosicion()[1] + 1 > lab.getColumnas()) { // ESTE
+
+					if (celdas[i][j].getVecinoE() != celdas[i][j + 1].getVecinoO()) {
+						System.out.println("Se ha encontrado un error de inconsistencia en la celda [" + i + "][" + j
+								+ "] con el vecino ESTE.");
+						valido = false;
+						break;
+
+					}
+
+				} else if (celdas[i][j].getPosicion()[0] + 1 > lab.getFilas()) { // SUR
+
+					if (celdas[i][j].getVecinoS() != celdas[i + 1][j].getVecinoN()) {
+						System.out.println("Se ha encontrado un error de inconsistencia en la celda [" + i + "][" + j
+								+ "] con el vecino SUR.");
+						valido = false;
+						break;
+					}
+
+				} else if (celdas[i][j].getPosicion()[1] - 1 > -1) { // OESTE
+					if (celdas[i][j].getVecinoO() != celdas[i][j - 1].getVecinoE()) {
+						System.out.println("Se ha encontrado un error de inconsistencia en la celda [" + i + "][" + j
+								+ "] con el vecino OESTE.");
+						valido = false;
+						break;
+
+					}
+
+				}
+
+			}
+		}
+
+		return valido;
 	}
 
 	public static Laberinto leerLaberinto(int filas, int columnas, JsonObject cells) {
