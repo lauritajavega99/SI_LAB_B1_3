@@ -1,2 +1,7 @@
 # SI_LAB_B1_3
-Tarea 1 realizada correctamente.
+Proyecto realizado por:
+- Pedro Millán Álvarez
+- Jesús Cabañero Fernández
+- Laura Muñoz Jávega
+
+Escuela Superior de Informática, Ciudad Real.
