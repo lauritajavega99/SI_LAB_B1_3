@@ -15,10 +15,11 @@ public class LeerJSON {
 	public LeerJSON() {
 	}
 
-	public Laberinto leerJson(String cadena) {
+	public Problema leerJson(String cadena) {
 
 		File archivo = new File("src/" + cadena + ".json");
 		FileReader archivojson = null;
+		Problema problem = new Problema();
 
 		try {
 			archivojson = new FileReader(archivo);
@@ -29,12 +30,41 @@ public class LeerJSON {
 		JsonParser parser = new JsonParser();
 		JsonObject gsonObj = parser.parse(archivojson).getAsJsonObject();
 
+		String inicial = gsonObj.get("INITIAL").getAsString();
+		String objetivo = gsonObj.get("OBJETIVE").getAsString();
+		String nombreLab = gsonObj.get("MAZE").getAsString();
+		
+		problem.setInicial(leerAtributos(inicial));
+		problem.setObjetivo(leerAtributos(objetivo));
+		problem.setLaberinto(obtenerLaberinto(nombreLab));
+		
+		return problem;
+		
+	}
+	
+	
+	
+	
+	
+	private Laberinto obtenerLaberinto(String nombreLab) {
+		File archivo = new File("src/" + nombreLab);
+		FileReader archivojson = null;
+
+		try {
+			archivojson = new FileReader(archivo);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		JsonParser parser = new JsonParser();
+		JsonObject gsonObj = parser.parse(archivojson).getAsJsonObject();
+		
 		int filas = gsonObj.get("rows").getAsInt();
 		int columnas = gsonObj.get("cols").getAsInt();
 
 		JsonObject cells = gsonObj.get("cells").getAsJsonObject();
 		Laberinto lab = leerLaberinto(filas, columnas, cells);
-
+		
 		if (verificarVecinos(lab)) {
 
 			return lab;
@@ -42,6 +72,31 @@ public class LeerJSON {
 			//Incosistencia del fichero
 			return null;
 		}
+	}
+
+	private int[] leerAtributos(String atributo) {
+		int[] valores = new int[2];
+		valores[0] = conseguirNumFila(atributo);
+		valores[1] = conseguirNumColumna(atributo);
+		return valores;
+	}
+
+	private int conseguirNumFila(String atributo) {
+		String[] partes = atributo.split(",");
+		String part1 = partes[0]; // (....,
+		part1 = part1.substring(1); //Quitamos el primer caracter, el (
+		int fila = Integer.parseInt(part1);
+		
+		return fila;
+	}
+	
+	private int conseguirNumColumna(String atributo) {
+		String[] partes = atributo.split(",");
+		String part1 = partes[1]; // ,...)
+		part1 = part1.substring(1, part1.length() - 1); //Quitamos el ultimo caracter, el ), y el primero, el espacio en blanco
+		int columna = Integer.parseInt(part1);
+		
+		return columna;
 	}
 
 	public static boolean verificarVecinos(Laberinto lab) {

@@ -32,13 +32,15 @@ public class ClasePrincipal {
 					break;
 				case 2:
 					Dibujar d = new Dibujar();
-					Laberinto lab = new Laberinto();
+					Problema problem = new Problema();
 					LeerJSON l = new LeerJSON();
 
-					System.out.println("Introduzca el nombre del laberinto que desea leer:");
+					System.out.println("Introduzca el nombre del Problema que desea leer:");
 					nombre = sn.next();
 
-					lab = l.leerJson(nombre);
+					problem = l.leerJson(nombre);
+					Laberinto lab = problem.getLaberinto();
+					System.out.println(problem.toString());
 					try {
 						d.dibujar(lab, lab.getFilas(), lab.getColumnas());
 
