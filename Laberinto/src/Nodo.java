@@ -85,30 +85,30 @@ public class Nodo implements Comparable<Nodo> {
 	public int compareTo(Nodo n) {
 		// se ordenan por el valor.
 		if (valor < n.valor) {
-			return 1;
-		} else if (valor > n.valor) {
 			return -1;
+		} else if (valor > n.valor) {
+			return 1;
 
-		} else { // en el caso de que tengan el mismo valor se guiará por el que tenga mayor.
+		} else { // en el caso de que tengan el mismo valor se guiará por el que tenga menor.
 					// fila.
 
 			if (estado[0] < n.estado[0]) {
 
-				return 1;
+				return -1;
 
 			} else if (estado[0] > n.estado[0]) {
 
-				return -1;
+				return 1;
 
-			} else { //si tienen el mismo valor de fila se ordenarán por valor de columna (mayor a menor).
+			} else { //si tienen el mismo valor de fila se ordenarán por valor de columna (menor a mayor).
 
 				if (estado[1] < n.estado[1]) {
 
-					return 1;
+					return -1;
 
 				} else {
 
-					return -1;
+					return 1;
 				}
 			}
 		}
