@@ -32,13 +32,15 @@ public class ClasePrincipal {
 					break;
 				case 2:
 					Dibujar d = new Dibujar();
-					Laberinto lab = new Laberinto();
+					Problema problem = new Problema();
 					LeerJSON l = new LeerJSON();
 
-					System.out.println("Introduzca el nombre del laberinto que desea leer:");
+					System.out.println("Introduzca el nombre del Problema que desea leer:");
 					nombre = sn.next();
 
-					lab = l.leerJson(nombre);
+					problem = l.leerJson(nombre);
+					Laberinto lab = problem.getLaberinto();
+					System.out.println(problem.toString());
 					try {
 						d.dibujar(lab, lab.getFilas(), lab.getColumnas());
 
@@ -74,18 +76,27 @@ public class ClasePrincipal {
 				int m = sn.nextInt();// filas
 				System.out.println("Introduce el número de columnas:");
 				int n = sn.nextInt();// columnas
-
+				
+				Problema problem = new Problema();
 				Laberinto laberinto = new Laberinto();
 				laberinto = introducirCeldas(laberinto, n, m);
 				laberinto = wilson(laberinto);
-
+				
+				problem.setLaberinto(laberinto);
+				
+				añadirInicial(problem);
+				añadirObjetivo(problem);
+				
 				mostrarCeldas(laberinto);
+				
+				System.out.println(problem.toString());
 
 				Dibujar d = new Dibujar();
 				d.dibujar(laberinto, m, n);
 
 				EscribirJSON e = new EscribirJSON();
-				e.escribirJSON(laberinto);
+				e.escribirJSON(problem);
+				
 				salir = true;
 
 			} catch (InputMismatchException e) {
@@ -95,6 +106,27 @@ public class ClasePrincipal {
 			}
 		}
 
+	}
+
+	private static void añadirInicial(Problema problem) {
+		int[] inicial = new int[2];
+		Random r = new Random();
+		int filas = problem.getLaberinto().getFilas();
+		int columnas = problem.getLaberinto().getColumnas();
+		filas = r.nextInt(filas);
+		columnas = r.nextInt(columnas);
+		inicial[0] = filas;
+		inicial[1] = columnas;
+		problem.setInicial(inicial);
+	}
+
+	private static void añadirObjetivo(Problema problem) {
+		int[] objetivo = new int[2];
+		int filas = problem.getLaberinto().getFilas();
+		int columnas = problem.getLaberinto().getColumnas();
+		objetivo[0] = filas;
+		objetivo[1] = columnas;
+		problem.setObjetivo(objetivo);
 	}
 
 	public static Laberinto introducirCeldas(Laberinto lab, int n, int m) { // Metodo que inicializa el laberinto.
