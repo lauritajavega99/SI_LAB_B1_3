@@ -15,9 +15,11 @@ public class Prueba_f {
 		front.insertarNodo(n1);
 	}
 		
-		Collections.sort(front.getFrontera());
+	 while (!front.esVacia()) {
+         Nodo o = front.eliminarNodo();
+         System.out.println(o.toString());
+     }
 	
-		front.recorrerLista();
 
 	}
 
