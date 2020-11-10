@@ -19,6 +19,10 @@ public class Nodo implements Comparable<Nodo> {
 		this.accion = accion;
 		this.costo = costo;
 	}
+	
+	public Nodo() {
+		
+	}
 
 	public int getId() {
 		return id;
