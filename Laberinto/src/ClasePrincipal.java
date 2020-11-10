@@ -73,9 +73,9 @@ public class ClasePrincipal {
 			try {
 
 				System.out.println("Introduce el número de filas:");
-				int m = sn.nextInt();// filas
+				int m = sn.nextInt(); // filas
 				System.out.println("Introduce el número de columnas:");
-				int n = sn.nextInt();// columnas
+				int n = sn.nextInt(); // columnas
 				
 				Problema problem = new Problema();
 				Laberinto laberinto = new Laberinto();
@@ -140,7 +140,7 @@ public class ClasePrincipal {
 				posicion = new int[2];
 				posicion[0] = i;
 				posicion[1] = j;
-				Celda c = new Celda(posicion, 0, false);
+				Celda c = new Celda(posicion, valorAleatorio(), false);
 				c.setVecinoN(false);
 				c.setVecinoE(false);
 				c.setVecinoS(false);
@@ -150,6 +150,11 @@ public class ClasePrincipal {
 		}
 		lab.setCeldas(celdas);
 		return lab;
+	}
+
+	private static int valorAleatorio() {
+		Random r = new Random();
+		return r.nextInt(4);
 	}
 
 	public static Laberinto wilson(Laberinto lab) {
