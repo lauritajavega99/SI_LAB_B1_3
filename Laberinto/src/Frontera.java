@@ -6,26 +6,23 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Frontera {
-
-	List<Nodo>frontera;
+	Queue<Nodo> frontera;
 	private int contador = 0;
 
 	public Frontera() {
 
-		frontera =  new ArrayList<Nodo>();
+		frontera =   new PriorityQueue<Nodo>();
 
 	}
 
-
-	public List<Nodo> getFrontera() {
+	public Queue<Nodo> getFrontera() {
 		return frontera;
 	}
 
 
-	public void setFrontera(List<Nodo> frontera) {
+	public void setFrontera(Queue<Nodo> frontera) {
 		this.frontera = frontera;
 	}
-
 
 	public int getContador() {
 		return contador;
@@ -42,7 +39,7 @@ public class Frontera {
 
 	public Nodo eliminarNodo() {
 
-		Nodo n = frontera.remove(0);
+		Nodo n = frontera.remove();
 		return n;
 	}
 
@@ -56,7 +53,7 @@ public class Frontera {
 		}
 	}
 
-	public void recorrerLista() {
+	public void recorrerCola() {
 		for (Nodo n : frontera) {
 			System.out.println(n.toString());
 		}
