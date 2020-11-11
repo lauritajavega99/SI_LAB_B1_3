@@ -1,13 +1,25 @@
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Busqueda {
-
+	
+	public static void main(String[] args){
+		int[] incial = {0,0};
+		int[] objetivo = {15,15};
+		
+		Problema problem = new Problema();
+		problem.setInicial(incial);
+		problem.setObjetivo(objetivo);
+		algoritmosBusqueda(problem);
+	}
+	
 	public Busqueda(){
 		
 	}
 	
 	public static void algoritmosBusqueda(Problema problem) {
+		int profundidad = 0;
 		Scanner sn = new Scanner(System.in);
 		boolean salir = false;
 		int opcion; // Guardaremos la opcion del usuario
@@ -24,23 +36,23 @@ public class Busqueda {
 				opcion = sn.nextInt();
 				switch (opcion) {
 				case 1:
-					AlgoritAnchura(problem);
+					AlgoritmoBusqueda(problem,"BREADTH", profundidad);
 					salir = true;
 					break;
 				case 2:
-					AlgoritProfundidadAcotada(problem);
+					AlgoritmoBusqueda(problem,"DEPTH", profundidad);
 					salir = true;
 					break;
 				case 3:
-					AlgoritCosteUniforme(problem);
+					AlgoritmoBusqueda(problem,"UNIFORM", profundidad);
 					salir = true;
 					break;
 				case 4:
-					AlgoritVoraz(problem);
+					AlgoritmoBusqueda(problem,"GREEDY", profundidad);
 					salir = true;
 					break;
 				case 5:
-					Algorit_A(problem);
+					AlgoritmoBusqueda(problem,"A", profundidad);
 					salir = true;
 					break;
 				default:
@@ -52,38 +64,55 @@ public class Busqueda {
 			}
 		}
 		
-		
-		
 	}
-	
-	private static void Algorit_A(Problema problem) {
+
+	private static void AlgoritmoBusqueda(Problema problem, String estrategia, int profundidad) {
+		Visitados visitados = new Visitados();
+		Frontera frontera = new Frontera();
+		boolean solucion = false;
+		visitados.crear_vacio();
 		Nodo nodo = new Nodo();
+		nodo.setPadre(null); //TIENE QUE SER NADIE
+		nodo.setEstado(problem.getInicial());
+		nodo.setCosto(0);
+		nodo.setProfundidad(0);
+		nodo.setAccion(null);
 		ponerHeuristica(problem.getObjetivo(), nodo);
+		ponerValor(estrategia, nodo);
+		
+		frontera.insertarNodo(nodo);
+		
+		while(!frontera.esVacia() && !solucion) {
+			nodo = frontera.primerElemento();
+			if(Arrays.equals(problem.getObjetivo(), nodo.getEstado())){
+				solucion = true;
+			}else if(visitados.pertenece(nodo.getEstado()) && (nodo.getProfundidad() < profundidad)) {
+				
+			}
+			
+		}
 		
 	}
 
-	private static void AlgoritVoraz(Problema problem) {
-		Nodo nodo = new Nodo();
-		ponerHeuristica(problem.getObjetivo(), nodo);
-		
-	}
-
-	private static void AlgoritCosteUniforme(Problema problem) {
-		Nodo nodo = new Nodo();
-		ponerHeuristica(problem.getObjetivo(), nodo);
-		
-	}
-
-	private static void AlgoritProfundidadAcotada(Problema problem) {
-		Nodo nodo = new Nodo();
-		ponerHeuristica(problem.getObjetivo(), nodo);
-		
-	}
-
-	private static void AlgoritAnchura(Problema problem) {
-		Nodo nodo = new Nodo();
-		ponerHeuristica(problem.getObjetivo(), nodo);
-		
+	private static void ponerValor(String estrategia, Nodo nodo) {
+		switch (estrategia) {
+		case "BREADTH":
+			nodo.setValor(nodo.getProfundidad());
+			break;
+		case "DEPTH":
+			//ARREGLAR O COMPROBAR ESTE CALCULO!!!!!!
+			nodo.setValor(1/nodo.getProfundidad());
+			break;
+		case "UNIFORM":
+			nodo.setValor(nodo.getCosto());
+			break;
+		case "GREEDY":
+			nodo.setValor(nodo.getHeuristica());
+			break;
+		case "A":
+			nodo.setValor(nodo.getCosto()+nodo.getHeuristica());
+			break;
+		}
 	}
 
 	public static void ponerHeuristica(int[] objetivo, Nodo nodo) {
