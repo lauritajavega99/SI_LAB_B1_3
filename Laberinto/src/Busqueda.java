@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -19,7 +20,7 @@ public class Busqueda {
 	}
 	
 	public static void algoritmosBusqueda(Problema problem) {
-		int profundidad = 0;
+		int profundidad = 0; //LA PROFUNDIDAD DEL RPOBLEMA NO ES ZERO
 		Scanner sn = new Scanner(System.in);
 		boolean salir = false;
 		int opcion; // Guardaremos la opcion del usuario
@@ -67,6 +68,7 @@ public class Busqueda {
 	}
 
 	private static void AlgoritmoBusqueda(Problema problem, String estrategia, int profundidad) {
+		ArrayList<Nodo> listaNodosHijos = new ArrayList<Nodo>();
 		Visitados visitados = new Visitados();
 		Frontera frontera = new Frontera();
 		boolean solucion = false;
@@ -87,7 +89,11 @@ public class Busqueda {
 			if(Arrays.equals(problem.getObjetivo(), nodo.getEstado())){
 				solucion = true;
 			}else if(visitados.pertenece(nodo.getEstado()) && (nodo.getProfundidad() < profundidad)) {
-				
+				visitados.insertar(nodo.getEstado());
+				//expandirNodo(problem, nodo, estrategia);
+				for(int i = 0; i<listaNodosHijos.size();i++) {
+					frontera.insertarNodo(listaNodosHijos.get(i));
+				}
 			}
 			
 		}
