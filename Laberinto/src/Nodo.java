@@ -3,6 +3,7 @@ import java.util.Comparator;
 
 public class Nodo implements Comparable<Nodo> {
 	private int id;
+	private Nodo Padre;
 	private int[] estado;
 	private int valor;
 	private int profundidad;
@@ -12,6 +13,7 @@ public class Nodo implements Comparable<Nodo> {
 
 	public Nodo(int id, int[] estado, int valor, int profundidad, int heuristica, String accion, int costo) {
 		this.id = id;
+		this.Padre = Padre;
 		this.estado = estado;
 		this.valor = valor;
 		this.profundidad = profundidad;
@@ -20,6 +22,10 @@ public class Nodo implements Comparable<Nodo> {
 		this.costo = costo;
 	}
 
+	public Nodo() {
+		
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -74,6 +80,14 @@ public class Nodo implements Comparable<Nodo> {
 
 	public void setCosto(int costo) {
 		this.costo = costo;
+	}
+	
+	public Nodo getPadre() {
+		return Padre;
+	}
+
+	public void setPadre(Nodo padre) {
+		Padre = padre;
 	}
 
 	public String toString() {
