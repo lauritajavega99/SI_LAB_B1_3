@@ -21,6 +21,7 @@ public class Busqueda {
 	
 	public static void algoritmosBusqueda(Problema problem) {
 		int profundidad = 0; //LA PROFUNDIDAD DEL RPOBLEMA NO ES ZERO
+		
 		Scanner sn = new Scanner(System.in);
 		boolean salir = false;
 		int opcion; // Guardaremos la opcion del usuario
