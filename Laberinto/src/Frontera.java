@@ -34,6 +34,11 @@ public class Frontera {
 		frontera.add(nodo);
 
 	}
+	
+	public Nodo primerElemento() {
+		Nodo n = frontera.poll();
+		return n;
+	}
 
 	public Nodo eliminarNodo() {
 

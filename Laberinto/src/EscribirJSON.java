@@ -41,10 +41,11 @@ public class EscribirJSON {
 	
 
 	private String construirTextMaze(Problema problem) {
-		String valor = "sucesores_" + problem.getLaberinto().getFilas() + "X" + problem.getLaberinto().getColumnas() + "_maze.json";
+		String valor = "sucesores_" + problem.getLaberinto().getFilas() 
+				+ "X" + problem.getLaberinto().getColumnas() 
+				+ "_maze.json";
 		return valor;
 	}
-
 
 	private String construirAtributo(int[] atributo) {
 		String valor = "(" + atributo[0] + ", " + atributo[1] + ")";

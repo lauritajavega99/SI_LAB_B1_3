@@ -11,7 +11,7 @@ public class Prueba_f {
 		int[] estado = {0,0};
 		estado[0]=r.nextInt(100);
 		estado[1]=r.nextInt(100);
-		Nodo n1 = new Nodo(i, estado, r.nextInt(100),r.nextInt(100), r.nextInt(100), null, r.nextInt(100));
+		Nodo n1 = new Nodo(i,null, estado, r.nextInt(100),r.nextInt(100), r.nextInt(100), null, r.nextInt(100));
 		front.insertarNodo(n1);
 	}
 		
