@@ -93,7 +93,6 @@ public class ClasePrincipal {
 
 				Dibujar d = new Dibujar();
 				d.dibujar(laberinto, m, n);
-
 				EscribirJSON e = new EscribirJSON();
 				e.escribirJSON(problem);
 				
@@ -133,6 +132,7 @@ public class ClasePrincipal {
 		lab.setColumnas(n);
 		lab.setFilas(m);
 		int[] posicion;
+		Random r = new Random();
 		Celda celdas[][] = new Celda[m][n];
 		for (int i = 0; i < celdas.length; i++) {
 			for (int j = 0; j < celdas[0].length; j++) {
@@ -140,7 +140,7 @@ public class ClasePrincipal {
 				posicion = new int[2];
 				posicion[0] = i;
 				posicion[1] = j;
-				Celda c = new Celda(posicion, 0, false);
+				Celda c = new Celda(posicion,r.nextInt(4), false);
 				c.setVecinoN(false);
 				c.setVecinoE(false);
 				c.setVecinoS(false);
