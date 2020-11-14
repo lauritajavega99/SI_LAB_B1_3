@@ -1,7 +1,5 @@
 
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -45,12 +43,6 @@ public class Frontera {
 
 	public boolean esVacia() {
 		return frontera.isEmpty();
-	}
-
-	public void InsertarLista(ArrayList<Nodo> listaNodos) {
-		for (int i = 0; i < listaNodos.size(); i++) {
-			frontera.add(listaNodos.get(i));
-		}
 	}
 
 	public void recorrerCola() {
