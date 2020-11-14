@@ -25,10 +25,6 @@ public class Nodo implements Comparable<Nodo> {
 	public Nodo() {
 		
 	}
-
-	public Nodo() {
-		
-	}
 	
 	public int getId() {
 		return id;
@@ -86,14 +82,6 @@ public class Nodo implements Comparable<Nodo> {
 		this.costo = costo;
 	}
 	
-	public Nodo getPadre() {
-		return Padre;
-	}
-
-	public void setPadre(Nodo padre) {
-		Padre = padre;
-	}
-
 	public Nodo getPadre() {
 		return Padre;
 	}
