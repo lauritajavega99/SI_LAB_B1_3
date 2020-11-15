@@ -14,7 +14,6 @@ public class ClasePrincipal {
 	private static void menu() {
 		Scanner sn = new Scanner(System.in);
 		boolean salir = false;
-		boolean s = false;
 		String nombre;
 		int opcion; // Guardaremos la opcion del usuario
 		while (!salir) {
