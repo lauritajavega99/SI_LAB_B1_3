@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class Busqueda {
 	
+	private static int ID = 1;
+	
 	public Busqueda(){
 	}
 	
@@ -72,6 +74,7 @@ public class Busqueda {
 		boolean solucion = false;
 		visitados.crear_vacio();
 		Nodo nodo = new Nodo();
+		nodo.setId(0);
 		nodo.setPadre(null); //TIENE QUE SER NADIE
 		nodo.setEstado(problem.getInicial());
 		nodo.setCosto(0);
@@ -90,6 +93,7 @@ public class Busqueda {
 				visitados.insertar(nodo.getEstado());
 				ArrayList<Nodo> listaNodosHijos = expandirNodo(problem, nodo, estrategia);
 				for(int i = 0; i<listaNodosHijos.size();i++) {
+					
 					frontera.insertarNodo(listaNodosHijos.get(i));
 				}
 			}
@@ -114,6 +118,7 @@ public class Busqueda {
 		quitarDireccionLlegada(nodo, sucesores);
 		for(int i = 0; i < sucesores.size() ; i++) {
 			Nodo nodohijo = new Nodo();
+			nodohijo.setId(ID);
 			nodohijo.setEstado(sucesores.get(i).getEstado());
 			nodohijo.setPadre(nodo);
 			nodohijo.setAccion(sucesores.get(i).getAccion());
@@ -122,6 +127,7 @@ public class Busqueda {
 			nodohijo.setHeuristica(ponerHeuristica(problem.getObjetivo(), sucesores.get(i).getEstado()));
 			nodohijo.setValor(ponerValor(estrategia, nodohijo));
 			listaNodosHijos.add(nodohijo);
+			ID++;
 		}
 		return listaNodosHijos;
 	}
