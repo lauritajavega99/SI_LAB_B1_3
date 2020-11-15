@@ -9,7 +9,6 @@ public class EscribirJSON {
 
 	}
 	
-	
 	public void escribirJSON(Problema problem) {
 		
 		JsonObject gsonObj = new JsonObject();

@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 
 public class ClasePrincipal {
@@ -7,11 +8,11 @@ public class ClasePrincipal {
 	private static final int SUR = 2;
 	private static final int OESTE = 3;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		menu();
 	}
 
-	private static void menu() {
+	private static void menu() throws IOException {
 		Scanner sn = new Scanner(System.in);
 		boolean salir = false;
 		String nombre;
@@ -32,14 +33,17 @@ public class ClasePrincipal {
 				case 2:
 					Dibujar d = new Dibujar();
 					Problema problem = new Problema();
+					Busqueda b = new Busqueda();
 					LeerJSON l = new LeerJSON();
 
 					System.out.println("Introduzca el nombre del Problema que desea leer:");
 					nombre = sn.next();
 
 					problem = l.leerJson(nombre);
+					//SOLUCION DEL LABERINTO
+					ArrayList<Nodo> solucion = b.algoritmosBusqueda(problem);
 					Laberinto lab = problem.getLaberinto();
-					System.out.println(problem.toString());
+					
 					try {
 						d.dibujar(lab, lab.getFilas(), lab.getColumnas());
 

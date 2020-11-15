@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -5,28 +6,19 @@ import java.util.Scanner;
 
 public class Busqueda {
 	
-	public static void main(String[] args){
-		int[] incial = {0,0};
-		int[] objetivo = {15,15};
-		
-		Problema problem = new Problema();
-		problem.setInicial(incial);
-		problem.setObjetivo(objetivo);
-		algoritmosBusqueda(problem);
-	}
-	
 	public Busqueda(){
-		
 	}
 	
-	public static void algoritmosBusqueda(Problema problem) {
-		int profundidad = 0; //LA PROFUNDIDAD DEL RPOBLEMA NO ES ZERO
+	public ArrayList<Nodo> algoritmosBusqueda(Problema problem) throws IOException {
+		int profundidad = problem.getLaberinto().getFilas() * problem.getLaberinto().getColumnas(); //LA PROFUNDIDAD DEL RPOBLEMA NO ES ZERO
 		
+		EscribirSolucion es = new EscribirSolucion();
+		ArrayList<Nodo> solucion = new ArrayList<Nodo>();
 		Scanner sn = new Scanner(System.in);
 		boolean salir = false;
 		int opcion; // Guardaremos la opcion del usuario
 		while (!salir) {
-			ArrayList<Nodo> solucion = new ArrayList<Nodo>();
+			
 			System.out.println("Introduce una de las opciones de busqueda:");
 			System.out.println("1. Anchura (BREADTH)");
 			System.out.println("2. Profundidad Acotada (DEPTH)");
@@ -40,22 +32,27 @@ public class Busqueda {
 				switch (opcion) {
 				case 1:
 					solucion = AlgoritmoBusqueda(problem,"BREADTH", profundidad);
+					es.escribirSolucion(solucion, problem, "BREADTH");
 					salir = true;
 					break;
 				case 2:
 					solucion = AlgoritmoBusqueda(problem,"DEPTH", profundidad);
+					es.escribirSolucion(solucion, problem, "DEPTH");
 					salir = true;
 					break;
 				case 3:
 					solucion = AlgoritmoBusqueda(problem,"UNIFORM", profundidad);
+					es.escribirSolucion(solucion, problem, "UNIFORM");
 					salir = true;
 					break;
 				case 4:
 					solucion = AlgoritmoBusqueda(problem,"GREEDY", profundidad);
+					es.escribirSolucion(solucion, problem, "GREEDY");
 					salir = true;
 					break;
 				case 5:
 					solucion = AlgoritmoBusqueda(problem,"A", profundidad);
+					es.escribirSolucion(solucion, problem, "A");
 					salir = true;
 					break;
 				default:
@@ -66,7 +63,7 @@ public class Busqueda {
 				sn.next();
 			}
 		}
-		
+		return solucion;
 	}
 
 	private static ArrayList<Nodo> AlgoritmoBusqueda(Problema problem, String estrategia, int profundidad) {
@@ -79,7 +76,7 @@ public class Busqueda {
 		nodo.setEstado(problem.getInicial());
 		nodo.setCosto(0);
 		nodo.setProfundidad(0);
-		nodo.setAccion("");
+		nodo.setAccion("None");
 		nodo.setHeuristica(ponerHeuristica(problem.getObjetivo(), nodo.getEstado()));
 		nodo.setValor(ponerValor(estrategia, nodo));
 		
