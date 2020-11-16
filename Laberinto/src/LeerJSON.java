@@ -17,7 +17,7 @@ public class LeerJSON {
 
 	public Problema leerJson(String cadena) {
 
-		File archivo = new File("src/" + cadena + ".json");
+		File archivo = new File("src/ejemplos/" + cadena + ".json");
 		FileReader archivojson = null;
 		Problema problem = new Problema();
 
@@ -47,7 +47,7 @@ public class LeerJSON {
 	
 	
 	private Laberinto obtenerLaberinto(String nombreLab) {
-		File archivo = new File("src/" + nombreLab);
+		File archivo = new File("src/ejemplos/" + nombreLab);
 		FileReader archivojson = null;
 
 		try {
