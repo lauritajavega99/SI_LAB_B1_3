@@ -22,7 +22,7 @@ public class EscribirJSON {
 		gsonObj.addProperty("MAZE", maze);
 		
 		try {
-			FileWriter file = new FileWriter("src\\sucesores_"
+			FileWriter file = new FileWriter("src\\problema_"
 					+ problem.getLaberinto().getFilas() 
 					+ "X" + problem.getLaberinto().getColumnas() 
 					+ ".json");
@@ -40,7 +40,7 @@ public class EscribirJSON {
 	
 
 	private String construirTextMaze(Problema problem) {
-		String valor = "sucesores_" + problem.getLaberinto().getFilas() 
+		String valor = "problema_" + problem.getLaberinto().getFilas() 
 				+ "X" + problem.getLaberinto().getColumnas() 
 				+ "_maze.json";
 		return valor;
