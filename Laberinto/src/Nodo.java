@@ -10,7 +10,8 @@ public class Nodo implements Comparable<Nodo> {
 	private String accion;
 	private int costo;
 
-	public Nodo(int id,Nodo Padre, int[] estado, int valor, int profundidad, int heuristica, String accion, int costo) {
+	public Nodo(int id, Nodo Padre, int[] estado, int valor, int profundidad, int heuristica, String accion,
+			int costo) {
 		this.id = id;
 		this.Padre = Padre;
 		this.estado = estado;
@@ -20,11 +21,11 @@ public class Nodo implements Comparable<Nodo> {
 		this.accion = accion;
 		this.costo = costo;
 	}
-	
+
 	public Nodo() {
-		
+
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -80,7 +81,7 @@ public class Nodo implements Comparable<Nodo> {
 	public void setCosto(int costo) {
 		this.costo = costo;
 	}
-	
+
 	public Nodo getPadre() {
 		return Padre;
 	}
@@ -115,18 +116,25 @@ public class Nodo implements Comparable<Nodo> {
 
 				return 1;
 
-			} else { //si tienen el mismo valor de fila se ordenarán por valor de columna (menor a mayor).
+			} else { // si tienen el mismo valor de fila se ordenarán por valor de columna (menor a
+						// mayor).
 
 				if (estado[1] < n.estado[1]) {
 
 					return -1;
 
-				} else {
+				} else if (estado[1] > n.estado[1]) {
 
 					return 1;
+
+				} else { // en el caso que tengan la misma columna
+					if (id < n.id) {
+						return -1;
+					} else {
+						return 1;
+					}
 				}
 			}
 		}
 	}
-
 }
