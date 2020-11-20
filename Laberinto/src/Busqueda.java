@@ -12,7 +12,7 @@ public class Busqueda {
 	}
 	
 	public ArrayList<Nodo> algoritmosBusqueda(Problema problem) throws IOException {
-		int profundidad = problem.getLaberinto().getFilas() * problem.getLaberinto().getColumnas(); //LA PROFUNDIDAD DEL RPOBLEMA NO ES ZERO
+		int profundidad = problem.getLaberinto().getFilas() * problem.getLaberinto().getColumnas(); //LA PROFUNDIDAD DEL RPOBLEMA
 		
 		EscribirSolucion es = new EscribirSolucion();
 		ArrayList<Nodo> solucion = new ArrayList<Nodo>();
@@ -115,7 +115,6 @@ public class Busqueda {
 	private static ArrayList<Nodo> expandirNodo(Problema problem, Nodo nodo, String estrategia) {
 		ArrayList<Nodo> listaNodosHijos = new ArrayList<Nodo>();
 		ArrayList<Sucesor> sucesores = problem.sucesores(nodo.getEstado(), problem.getLaberinto());
-		quitarDireccionLlegada(nodo, sucesores);
 		for(int i = 0; i < sucesores.size() ; i++) {
 			Nodo nodohijo = new Nodo();
 			nodohijo.setId(ID);
@@ -131,22 +130,6 @@ public class Busqueda {
 		}
 		return listaNodosHijos;
 	}
-
-	private static void quitarDireccionLlegada(Nodo nodo, ArrayList<Sucesor> sucesores) {
-		if(nodo.getAccion().equals("N") && pertenece("S", sucesores)) {
-			sucesores.removeIf(sucesor -> sucesor.getAccion().equals("S"));
-		}
-		if(nodo.getAccion().equals("E") && pertenece("O", sucesores)) {
-			sucesores.removeIf(sucesor -> sucesor.getAccion().equals("O"));
-		}
-		if(nodo.getAccion().equals("S") && pertenece("N", sucesores)) {
-			sucesores.removeIf(sucesor -> sucesor.getAccion().equals("N"));
-		}
-		if(nodo.getAccion().equals("O") && pertenece("E", sucesores)) {
-			sucesores.removeIf(sucesor -> sucesor.getAccion().equals("E"));
-		}
-		
-	}
 	
 	public static boolean pertenece(String accion, ArrayList<Sucesor> sucesores) {
 		boolean pertenece = false;
@@ -159,14 +142,14 @@ public class Busqueda {
 		return pertenece;
 	}
 
-	private static int ponerValor(String estrategia, Nodo nodo) {
-		int valor = 0;
+	private static double ponerValor(String estrategia, Nodo nodo) {
+		double valor = 0;
 		switch (estrategia) {
 		case "BREADTH":
 			valor = nodo.getProfundidad();
 			break;
 		case "DEPTH":
-			valor = 1/(nodo.getProfundidad()+1);
+			valor = redondeo((double)1/(nodo.getProfundidad()+1));
 			break;
 		case "UNIFORM":
 			valor = nodo.getCosto();
@@ -179,6 +162,11 @@ public class Busqueda {
 			break;
 		}
 		return valor;
+	}
+
+	private static double redondeo(double d) {
+		// TODO Auto-generated method stub
+		return Math.round(d * Math.pow(10,  17)) / Math.pow(10, 17);
 	}
 
 	public static int ponerHeuristica(int[] objetivo, int[] estado) {

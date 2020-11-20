@@ -49,14 +49,6 @@ public class Problema {
 			sucesor0.setCoste(lab.getCeldas()[estado[0]-1][estado[1]].getValor()+1);
 			sucesores.add(sucesor0);
 		}
-		if (comprobarLimite(lab, estado, 3) && lab.getCeldas()[estado[0]][estado[1]].getVecinoO()) { // OESTE
-			Sucesor sucesor3 = new Sucesor();
-			int[] estado3 = {estado[0], estado[1]-1};
-			sucesor3.setAccion("O");
-			sucesor3.setEstado(estado3);
-			sucesor3.setCoste(lab.getCeldas()[estado[0]][estado[1]-1].getValor()+1);
-			sucesores.add(sucesor3);
-		}
 		if (comprobarLimite(lab, estado, 1) && lab.getCeldas()[estado[0]][estado[1]].getVecinoE()) { // ESTE
 			Sucesor sucesor1 = new Sucesor();
 			int[] estado1 = {estado[0], estado[1]+1};
@@ -72,6 +64,14 @@ public class Problema {
 			sucesor2.setEstado(estado2);
 			sucesor2.setCoste(lab.getCeldas()[estado[0]+1][estado[1]].getValor()+1);
 			sucesores.add(sucesor2);
+		}
+		if (comprobarLimite(lab, estado, 3) && lab.getCeldas()[estado[0]][estado[1]].getVecinoO()) { // OESTE
+			Sucesor sucesor3 = new Sucesor();
+			int[] estado3 = {estado[0], estado[1]-1};
+			sucesor3.setAccion("O");
+			sucesor3.setEstado(estado3);
+			sucesor3.setCoste(lab.getCeldas()[estado[0]][estado[1]-1].getValor()+1);
+			sucesores.add(sucesor3);
 		}
 		return sucesores;
 	}

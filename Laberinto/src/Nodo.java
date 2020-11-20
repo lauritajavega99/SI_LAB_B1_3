@@ -4,13 +4,13 @@ public class Nodo implements Comparable<Nodo> {
 	private int id;
 	private Nodo Padre;
 	private int[] estado;
-	private int valor;
+	private double valor;
 	private int profundidad;
 	private int heuristica;
 	private String accion;
 	private int costo;
 
-	public Nodo(int id, Nodo Padre, int[] estado, int valor, int profundidad, int heuristica, String accion,
+	public Nodo(int id, Nodo Padre, int[] estado, double valor, int profundidad, int heuristica, String accion,
 			int costo) {
 		this.id = id;
 		this.Padre = Padre;
@@ -42,11 +42,11 @@ public class Nodo implements Comparable<Nodo> {
 		this.estado = estado;
 	}
 
-	public int getValor() {
+	public double getValor() {
 		return valor;
 	}
 
-	public void setValor(int valor) {
+	public void setValor(double valor) {
 		this.valor = valor;
 	}
 

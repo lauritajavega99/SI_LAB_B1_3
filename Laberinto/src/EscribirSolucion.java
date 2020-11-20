@@ -18,23 +18,34 @@ public class EscribirSolucion {
         BufferedWriter bw = new BufferedWriter(new FileWriter(archivo));
         bw.write("[id][cost,state,father_id,action,depth,h,value]");
         for (int i = solucion.size()-1; i >= 0; i--) {
-        	String linea = crearLineaNodo(solucion.get(i));
+        	String linea = crearLineaNodo(solucion.get(i), estrategia);
         	bw.write(linea);
         }
         bw.close();
         	   
     }
 
-	private String crearLineaNodo(Nodo nodo) {
+	private String crearLineaNodo(Nodo nodo, String estrategia) {
 		String linea = "";
-		linea = "\n[" + nodo.getId() + "][" 
-				+ nodo.getCosto() + ","
-				+ ponerEstado(nodo.getEstado()) + ","
-				+ ponerPadre(nodo) + ","
-				+ nodo.getAccion() + ","
-				+ nodo.getProfundidad() + ","
-				+ nodo.getHeuristica() + ","
-				+ nodo.getValor() + "]";
+		if(estrategia.equals("DEPTH")) {
+			linea = "\n[" + nodo.getId() + "][" 
+					+ nodo.getCosto() + ","
+					+ ponerEstado(nodo.getEstado()) + ","
+					+ ponerPadre(nodo) + ","
+					+ nodo.getAccion() + ","
+					+ nodo.getProfundidad() + ","
+					+ nodo.getHeuristica() + ","
+					+ nodo.getValor() + "]";
+		}else {
+			linea = "\n[" + nodo.getId() + "][" 
+					+ nodo.getCosto() + ","
+					+ ponerEstado(nodo.getEstado()) + ","
+					+ ponerPadre(nodo) + ","
+					+ nodo.getAccion() + ","
+					+ nodo.getProfundidad() + ","
+					+ nodo.getHeuristica() + ","
+					+ (int)nodo.getValor() + "]";
+		}
 		return linea;
 	}
 
