@@ -159,8 +159,8 @@ public class Busqueda {
 		return pertenece;
 	}
 
-	private static int ponerValor(String estrategia, Nodo nodo) {
-		int valor = 0;
+	private static double ponerValor(String estrategia, Nodo nodo) {
+		double valor = 0;
 		switch (estrategia) {
 		case "BREADTH":
 			valor = nodo.getProfundidad();
@@ -178,6 +178,7 @@ public class Busqueda {
 			valor = nodo.getCosto()+nodo.getHeuristica();
 			break;
 		}
+		
 		return valor;
 	}
 
