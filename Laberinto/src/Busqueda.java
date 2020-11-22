@@ -7,8 +7,11 @@ import java.util.Scanner;
 public class Busqueda {
 	
 	private static int ID = 1;
+	private static Frontera F = new Frontera();
+	private static ArrayList<Nodo> ARBOL = new ArrayList();
 	
 	public Busqueda(){
+		
 	}
 	
 	public ArrayList<Nodo> algoritmosBusqueda(Problema problem) throws IOException {
@@ -71,6 +74,7 @@ public class Busqueda {
 	private static ArrayList<Nodo> AlgoritmoBusqueda(Problema problem, String estrategia, int profundidad) {
 		Visitados visitados = new Visitados();
 		Frontera frontera = new Frontera();
+		ArrayList<Nodo> arbol = new ArrayList();
 		boolean solucion = false;
 		visitados.crear_vacio();
 		Nodo nodo = new Nodo();
@@ -91,12 +95,32 @@ public class Busqueda {
 				solucion = true;
 			}else if(!visitados.pertenece(nodo.getEstado()) && (nodo.getProfundidad() < profundidad)) {
 				visitados.insertar(nodo.getEstado());
+				arbol.add(nodo);
 				ArrayList<Nodo> listaNodosHijos = expandirNodo(problem, nodo, estrategia);
 				for(int i = 0; i<listaNodosHijos.size();i++) {
+				
+						frontera.insertarNodo(listaNodosHijos.get(i));
 					
-					frontera.insertarNodo(listaNodosHijos.get(i));
 				}
 			}
+		}
+		while(!frontera.esVacia()) {
+			Nodo nodito = frontera.primerElemento();
+			int[] estado = nodito.getEstado();
+			boolean pertenece = false;
+			for(int i= 0 ; i < arbol.size();i++) {
+				if(arbol.get(i).getEstado()[0]==estado[0] && arbol.get(i).getEstado()[1]==estado[1]) {
+					pertenece = true;
+				}
+			}
+			if(!pertenece) {
+				F.insertarNodo(nodito);
+			}
+			
+		}
+		
+		for (int j = 0;j<arbol.size();j++) {
+			ARBOL.add(arbol.get(j));
 		}
 		return Camino(nodo);
 	}
@@ -173,5 +197,22 @@ public class Busqueda {
 		int manhattan = 0;
 		manhattan = Math.abs(estado[0]-objetivo[0]) + Math.abs(estado[1]-objetivo[1]);
 		return manhattan;
+	}
+	public Frontera obtenerFrontera() {
+		return F;
+	}
+	public ArrayList<Nodo> obtenerArbol() {
+		return ARBOL;
+	}
+	public static boolean introducirFrontera(ArrayList<Nodo> arbol , Nodo nodo ) {
+		boolean pertenece = true;
+		for(int i =0 ; i< arbol.size(); i++) {
+			
+			if(arbol.get(i).getEstado()[0]==nodo.getEstado()[0] && arbol.get(i).getEstado()[1]==nodo.getEstado()[1]) {
+				pertenece = false;
+			}
+		}
+		return pertenece;
+																	
 	}
 }
