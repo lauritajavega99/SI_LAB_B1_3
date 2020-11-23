@@ -133,7 +133,7 @@ public class Dibujar {
 		StdDraw.show(0);
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < N; j++) {
-				
+				//
 				miLaberinto.colorear((j+1),fd, lab.getCeldas()[flab][j].getValor());
 
 				if (lab.getCeldas()[flab][j].getVecinoN() == true) {
