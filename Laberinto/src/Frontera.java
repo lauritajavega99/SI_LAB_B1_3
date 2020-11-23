@@ -5,7 +5,6 @@ import java.util.Queue;
 
 public class Frontera {
 	Queue<Nodo> frontera;
-	private int contador = 0;
 
 	public Frontera() {
 
@@ -20,14 +19,6 @@ public class Frontera {
 
 	public void setFrontera(Queue<Nodo> frontera) {
 		this.frontera = frontera;
-	}
-
-	public int getContador() {
-		return contador;
-	}
-
-	public void setContador(int contador) {
-		this.contador = contador;
 	}
 
 	public void insertarNodo(Nodo nodo) {
