@@ -21,6 +21,7 @@ public class ClasePrincipal {
 			System.out.println("Introduce una de las opciones disponibles:");
 			System.out.println("1. Crear un laberinto aleatorio");
 			System.out.println("2. Leer y dibujar laberinto");
+			System.out.println("3. Resolver un problema");
 			System.out.println("0. Salir");
 			try {
 
@@ -33,7 +34,7 @@ public class ClasePrincipal {
 				case 2:
 					Dibujar d = new Dibujar();
 					Problema problem = new Problema();
-					Busqueda b = new Busqueda();
+					//Busqueda b = new Busqueda();
 					LeerJSON l = new LeerJSON();
 
 					System.out.println("Introduzca el nombre del Problema que desea leer:");
@@ -41,7 +42,13 @@ public class ClasePrincipal {
 
 					problem = l.leerJson(nombre);
 					//SOLUCION DEL LABERINTO
-					ArrayList<Nodo> solucion = b.algoritmosBusqueda(problem);
+					////Frontera f = new Frontera();
+					//f= b.obtenerFrontera();
+					//while (!f.esVacia()) {
+					//	int[] e = f.primerElemento().getEstado();
+					//	System.out.print(e[0]);
+					//	System.out.println(e[1]);
+					//}
 					Laberinto lab = problem.getLaberinto();
 				
 					
@@ -55,6 +62,40 @@ public class ClasePrincipal {
 					salir = true;
 
 					break;
+				case 3:
+					Dibujar d3 = new Dibujar();
+					Problema problem3 = new Problema();
+					Busqueda b3 = new Busqueda();
+					LeerJSON l3 = new LeerJSON();
+					Frontera  f = new Frontera();
+
+					System.out.println("Introduzca el nombre del Problema que desea resolver:");
+					nombre = sn.next();
+
+					problem = l3.leerJson(nombre);
+					//SOLUCION DEL LABERINTO
+					ArrayList<Nodo> solucion3 = b3.algoritmosBusqueda(problem);
+					ArrayList<Nodo> front = new ArrayList();
+					ArrayList<Nodo> arbol= new ArrayList();
+					Frontera f3 = new Frontera();
+					arbol= b3.obtenerArbol();
+					f= b3.obtenerFrontera();
+					while (!f.esVacia()) {
+						front.add(f.primerElemento());
+					}
+					Laberinto lab3 = problem.getLaberinto();
+					
+					try {
+						d3.solucion(lab3, lab3.getFilas(), lab3.getColumnas(), front  , solucion3 , arbol);
+
+					} catch (NullPointerException e) {
+						System.out
+								.println("No se ha podido crear el laberinto debido a una inconsistencia del fichero.");
+					}
+					salir = true;
+
+					break;
+
 
 				case 0:
 					salir = true;
