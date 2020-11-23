@@ -43,8 +43,9 @@ public class ClasePrincipal {
 					//SOLUCION DEL LABERINTO
 					ArrayList<Nodo> solucion = b.algoritmosBusqueda(problem);
 					Laberinto lab = problem.getLaberinto();
+				
 					
-					try {
+					try {						
 						d.dibujar(lab, lab.getFilas(), lab.getColumnas());
 
 					} catch (NullPointerException e) {

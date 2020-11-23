@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -6,6 +7,7 @@ import java.util.Queue;
 public class Frontera {
 	Queue<Nodo> frontera;
 	private int contador = 0;
+	ArrayList<Nodo> front=new ArrayList();
 
 	public Frontera() {
 
@@ -48,6 +50,14 @@ public class Frontera {
 
 	public boolean esVacia() {
 		return frontera.isEmpty();
+	}
+
+	public ArrayList<Nodo> getFront() {
+		return front;
+	}
+
+	public void setFront(ArrayList<Nodo> front) {
+		this.front = front;
 	}
 
 	public void recorrerCola() {

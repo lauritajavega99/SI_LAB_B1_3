@@ -84,27 +84,29 @@ public class Busqueda {
 		nodo.setValor(ponerValor(estrategia, nodo));
 		
 		frontera.insertarNodo(nodo);
-		
+	
 		while(!frontera.esVacia() && !solucion) {
 			nodo = frontera.primerElemento();
 			if(Arrays.equals(problem.getObjetivo(), nodo.getEstado())){
 				solucion = true;
 			}else if(!visitados.pertenece(nodo.getEstado()) && (nodo.getProfundidad() < profundidad)) {
 				visitados.insertar(nodo.getEstado());
+				System.out.println(nodo.toString());
 				ArrayList<Nodo> listaNodosHijos = expandirNodo(problem, nodo, estrategia);
 				for(int i = 0; i<listaNodosHijos.size();i++) {
 					
 					frontera.insertarNodo(listaNodosHijos.get(i));
 				}
+				
 			}
 		}
+		
 		return Camino(nodo);
 	}
 
 	private static ArrayList<Nodo> Camino(Nodo nodo) {
 		ArrayList<Nodo> caminoSolucion = new ArrayList<Nodo>();
-		caminoSolucion.add(nodo);
-		
+		caminoSolucion.add(nodo);		
 		while(nodo.getPadre()!=null) {
 			nodo = nodo.getPadre();
 			caminoSolucion.add(nodo);
@@ -127,6 +129,7 @@ public class Busqueda {
 			nodohijo.setValor(ponerValor(estrategia, nodohijo));
 			listaNodosHijos.add(nodohijo);
 			ID++;
+			
 		}
 		return listaNodosHijos;
 	}
