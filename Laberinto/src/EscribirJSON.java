@@ -8,24 +8,22 @@ public class EscribirJSON {
 	public EscribirJSON() {
 
 	}
-	
+
 	public void escribirJSON(Problema problem) {
-		
+
 		JsonObject gsonObj = new JsonObject();
-		
+
 		String inicial = construirAtributo(problem.getInicial());
 		String objetivo = construirAtributo(problem.getObjetivo());
 		String maze = construirTextMaze(problem);
-		
+
 		gsonObj.addProperty("INITIAL", inicial);
 		gsonObj.addProperty("OBJETIVE", objetivo);
 		gsonObj.addProperty("MAZE", maze);
-		
+
 		try {
-			FileWriter file = new FileWriter("src\\problema_"
-					+ problem.getLaberinto().getFilas() 
-					+ "X" + problem.getLaberinto().getColumnas() 
-					+ ".json");
+			FileWriter file = new FileWriter("src\\problema_" + problem.getLaberinto().getFilas() + "X"
+					+ problem.getLaberinto().getColumnas() + ".json");
 			file.write(gsonObj.toString());
 			file.flush();
 			file.close();
@@ -33,15 +31,12 @@ public class EscribirJSON {
 		} catch (Exception ex) {
 			System.out.println("Error: " + ex.toString());
 		}
-		
+
 		escribirMaze(problem.getLaberinto());
 	}
-	
-	
 
 	private String construirTextMaze(Problema problem) {
-		String valor = "problema_" + problem.getLaberinto().getFilas() 
-				+ "X" + problem.getLaberinto().getColumnas() 
+		String valor = "problema_" + problem.getLaberinto().getFilas() + "X" + problem.getLaberinto().getColumnas()
 				+ "_maze.json";
 		return valor;
 	}
@@ -50,7 +45,6 @@ public class EscribirJSON {
 		String valor = "(" + atributo[0] + ", " + atributo[1] + ")";
 		return valor;
 	}
-
 
 	public void escribirMaze(Laberinto lab) {
 
@@ -64,8 +58,8 @@ public class EscribirJSON {
 		gsonObj.add("cells", gsonCells);
 
 		try {
-			FileWriter file = new FileWriter("src\\sucesores_"
-					+ lab.getFilas() + "X" + lab.getColumnas() + "_maze.json");
+			FileWriter file = new FileWriter(
+					"src\\sucesores_" + lab.getFilas() + "X" + lab.getColumnas() + "_maze.json");
 			file.write(gsonObj.toString());
 			file.flush();
 			file.close();

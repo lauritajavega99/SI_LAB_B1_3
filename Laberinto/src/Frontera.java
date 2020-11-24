@@ -7,19 +7,17 @@ import java.util.Queue;
 public class Frontera {
 	Queue<Nodo> frontera;
 	private int contador = 0;
-	ArrayList<Nodo> front=new ArrayList();
-
+	ArrayList<Nodo> front = new ArrayList();
 
 	public Frontera() {
 
-		frontera =   new PriorityQueue<Nodo>();
+		frontera = new PriorityQueue<Nodo>();
 
 	}
 
 	public Queue<Nodo> getFrontera() {
 		return frontera;
 	}
-
 
 	public void setFrontera(Queue<Nodo> frontera) {
 		this.frontera = frontera;
@@ -29,7 +27,7 @@ public class Frontera {
 		frontera.add(nodo);
 
 	}
-	
+
 	public Nodo primerElemento() {
 		Nodo n = frontera.poll();
 		return n;
@@ -58,6 +56,5 @@ public class Frontera {
 			System.out.println(n.toString());
 		}
 	}
-
 
 }

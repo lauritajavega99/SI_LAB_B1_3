@@ -33,19 +33,15 @@ public class LeerJSON {
 		String inicial = gsonObj.get("INITIAL").getAsString();
 		String objetivo = gsonObj.get("OBJETIVE").getAsString();
 		String nombreLab = gsonObj.get("MAZE").getAsString();
-		
+
 		problem.setInicial(leerAtributos(inicial));
 		problem.setObjetivo(leerAtributos(objetivo));
 		problem.setLaberinto(obtenerLaberinto(nombreLab));
-		
+
 		return problem;
-		
+
 	}
-	
-	
-	
-	
-	
+
 	private Laberinto obtenerLaberinto(String nombreLab) {
 		File archivo = new File("src/ejemplos/" + nombreLab);
 		FileReader archivojson = null;
@@ -58,18 +54,18 @@ public class LeerJSON {
 
 		JsonParser parser = new JsonParser();
 		JsonObject gsonObj = parser.parse(archivojson).getAsJsonObject();
-		
+
 		int filas = gsonObj.get("rows").getAsInt();
 		int columnas = gsonObj.get("cols").getAsInt();
 
 		JsonObject cells = gsonObj.get("cells").getAsJsonObject();
 		Laberinto lab = leerLaberinto(filas, columnas, cells);
-		
+
 		if (verificarVecinos(lab)) {
 
 			return lab;
 		} else {
-			//Incosistencia del fichero
+			// Incosistencia del fichero
 			return null;
 		}
 	}
@@ -84,18 +80,19 @@ public class LeerJSON {
 	private int conseguirNumFila(String atributo) {
 		String[] partes = atributo.split(",");
 		String part1 = partes[0]; // (....,
-		part1 = part1.substring(1); //Quitamos el primer caracter, el (
+		part1 = part1.substring(1); // Quitamos el primer caracter , el (
 		int fila = Integer.parseInt(part1);
-		
+
 		return fila;
 	}
-	
+
 	private int conseguirNumColumna(String atributo) {
 		String[] partes = atributo.split(",");
 		String part1 = partes[1]; // ,...)
-		part1 = part1.substring(1, part1.length() - 1); //Quitamos el ultimo caracter, el ), y el primero, el espacio en blanco
+		part1 = part1.substring(1, part1.length() - 1); // Quitamos el ultimo caracter, el ), y el primero, el espacio
+														// en blanco
 		int columna = Integer.parseInt(part1);
-		
+
 		return columna;
 	}
 
