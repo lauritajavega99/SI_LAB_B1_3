@@ -34,23 +34,15 @@ public class ClasePrincipal {
 				case 2:
 					Dibujar d = new Dibujar();
 					Problema problem = new Problema();
-					//Busqueda b = new Busqueda();
+					// Busqueda b = new Busqueda();
 					LeerJSON l = new LeerJSON();
 
 					System.out.println("Introduzca el nombre del Problema que desea leer:");
 					nombre = sn.next();
 
 					problem = l.leerJson(nombre);
-					//SOLUCION DEL LABERINTO
-					////Frontera f = new Frontera();
-					//f= b.obtenerFrontera();
-					//while (!f.esVacia()) {
-					//	int[] e = f.primerElemento().getEstado();
-					//	System.out.print(e[0]);
-					//	System.out.println(e[1]);
-					//}
 					Laberinto lab = problem.getLaberinto();
-					
+
 					try {
 						d.dibujar(lab, lab.getFilas(), lab.getColumnas());
 
@@ -66,26 +58,27 @@ public class ClasePrincipal {
 					Problema problem3 = new Problema();
 					Busqueda b3 = new Busqueda();
 					LeerJSON l3 = new LeerJSON();
-					Frontera  f = new Frontera();
+					Frontera f = new Frontera();
 
 					System.out.println("Introduzca el nombre del Problema que desea resolver:");
 					nombre = sn.next();
 
 					problem = l3.leerJson(nombre);
-					//SOLUCION DEL LABERINTO
+
+					// SOLUCION DEL LABERINTO
 					ArrayList<Nodo> solucion3 = b3.algoritmosBusqueda(problem);
 					ArrayList<Nodo> front = new ArrayList();
-					ArrayList<Nodo> arbol= new ArrayList();
+					ArrayList<Nodo> arbol = new ArrayList();
 					Frontera f3 = new Frontera();
-					arbol= b3.obtenerArbol();
-					f= b3.obtenerFrontera();
+					arbol = b3.obtenerArbol();
+					f = b3.obtenerFrontera();
 					while (!f.esVacia()) {
 						front.add(f.primerElemento());
 					}
 					Laberinto lab3 = problem.getLaberinto();
-					
+
 					try {
-						d3.solucion(lab3, lab3.getFilas(), lab3.getColumnas(), front  , solucion3 , arbol);
+						d3.solucion(lab3, lab3.getFilas(), lab3.getColumnas(), front, solucion3, arbol);
 
 					} catch (NullPointerException e) {
 						System.out
@@ -94,7 +87,6 @@ public class ClasePrincipal {
 					salir = true;
 
 					break;
-
 
 				case 0:
 					salir = true;
@@ -120,19 +112,19 @@ public class ClasePrincipal {
 				int m = sn.nextInt(); // filas
 				System.out.println("Introduce el número de columnas:");
 				int n = sn.nextInt(); // columnas
-				
+
 				Problema problem = new Problema();
 				Laberinto laberinto = new Laberinto();
 				laberinto = introducirCeldas(laberinto, n, m);
 				laberinto = wilson(laberinto);
-				
+
 				problem.setLaberinto(laberinto);
-				
+
 				añadirInicial(problem);
 				añadirObjetivo(problem);
-				
+
 				mostrarCeldas(laberinto);
-				
+
 				System.out.println(problem.toString());
 
 				Dibujar d = new Dibujar();
@@ -140,7 +132,7 @@ public class ClasePrincipal {
 
 				EscribirJSON e = new EscribirJSON();
 				e.escribirJSON(problem);
-				
+
 				salir = true;
 
 			} catch (InputMismatchException e) {

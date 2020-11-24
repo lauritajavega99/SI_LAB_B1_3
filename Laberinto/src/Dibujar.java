@@ -8,7 +8,7 @@ public class Dibujar {
 	private boolean[][] sur;
 	private boolean[][] oeste;
 
-	public Dibujar(int N, int M, Laberinto lab ) {
+	public Dibujar(int N, int M, Laberinto lab) {
 		this.N = N;
 		this.M = M;
 		StdDraw.setXscale(0, N + 2);
@@ -50,64 +50,69 @@ public class Dibujar {
 		}
 	}
 
-	public void colorear(int x , int y , int valor) {
-		if (valor==1) {
-			StdDraw.setPenColor(128,64,0);
-			StdDraw.filledSquare(x+0.5,y+0.5,0.5);
+	public void colorear(int x, int y, int valor) {
+		if (valor == 1) {
+			StdDraw.setPenColor(128, 64, 0);
+			StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
 		}
-		if (valor==2) {
+		if (valor == 2) {
 			StdDraw.setPenColor(StdDraw.GREEN);
-			StdDraw.filledSquare(x+0.5,y+0.5,0.5);
+			StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
 		}
-		if (valor==3) {
+		if (valor == 3) {
 			StdDraw.setPenColor(StdDraw.BLUE);
-			StdDraw.filledSquare(x+0.5,y+0.5,0.5);
+			StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
 		}
 		StdDraw.setPenColor(StdDraw.BLACK);
-		
+
 	}
-	public void colorearSolucion(int x , int y , int valor, ArrayList<Nodo> front, ArrayList<Nodo> solucion ,ArrayList<Nodo> arbol, int m , int n ) {
-	//// Pintamo Frontera 
-		if (valor==1) {
-			StdDraw.setPenColor(245,218,189);
-			StdDraw.filledSquare(x+0.5,y+0.5,0.5);
+
+	public void colorearSolucion(int x, int y, int valor, ArrayList<Nodo> front, ArrayList<Nodo> solucion,
+			ArrayList<Nodo> arbol, int m, int n) {
+		//// Pintamos la Frontera
+		if (valor == 1) {
+			StdDraw.setPenColor(245, 218, 189);
+			StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
 		}
-		if (valor==2) {
-			StdDraw.setPenColor(181,225,174);
-			StdDraw.filledSquare(x+0.5,y+0.5,0.5);
+		if (valor == 2) {
+			StdDraw.setPenColor(181, 225, 174);
+			StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
 		}
-		if (valor==3) {
-			StdDraw.setPenColor(154,206,223);
-			StdDraw.filledSquare(x+0.5,y+0.5,0.5);
+		if (valor == 3) {
+			StdDraw.setPenColor(154, 206, 223);
+			StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
 		}
 		StdDraw.setPenColor(StdDraw.BLACK);
-		for (int i = 0; i<front.size();i++) {
-			if (front.get(i).getEstado()[0]==m && front.get(i).getEstado()[1]== n) {
+		for (int i = 0; i < front.size(); i++) {
+			if (front.get(i).getEstado()[0] == m && front.get(i).getEstado()[1] == n) {
 				StdDraw.setPenColor(StdDraw.BLUE);
-				StdDraw.filledSquare(x+0.5,y+0.5,0.5);
-				
+				StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
+
 			}
 		}
-		for (int i = 0; i<arbol.size();i++) {
-			if (arbol.get(i).getEstado()[0]==m && arbol.get(i).getEstado()[1]== n) {
-				StdDraw.setPenColor(StdDraw.GREEN);
-				StdDraw.filledSquare(x+0.5,y+0.5,0.5);
-				
-			}
-		}
-			
-		for (int i = 0; i<solucion.size();i++) {
-			if (solucion.get(i).getEstado()[0]==m && solucion.get(i).getEstado()[1]== n) {
-				StdDraw.setPenColor(StdDraw.RED);
-				StdDraw.filledSquare(x+0.5,y+0.5,0.5);
-				
-			}
-		}
-	
-			
-		StdDraw.setPenColor(StdDraw.BLACK);
 		
+		//// Pintamos el árbol
+		for (int i = 0; i < arbol.size(); i++) {
+			if (arbol.get(i).getEstado()[0] == m && arbol.get(i).getEstado()[1] == n) {
+				StdDraw.setPenColor(StdDraw.GREEN);
+				StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
+
+			}
+		}
+
+	//// Pintamos el camino de la solución
+		for (int i = 0; i < solucion.size(); i++) {
+			if (solucion.get(i).getEstado()[0] == m && solucion.get(i).getEstado()[1] == n) {
+				StdDraw.setPenColor(StdDraw.RED);
+				StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
+
+			}
+		}
+
+		StdDraw.setPenColor(StdDraw.BLACK);
+
 	}
+
 	public void dibujar() {
 		StdDraw.setPenColor(StdDraw.BLACK);
 		for (int x = 1; x <= N; x++) {
@@ -127,14 +132,14 @@ public class Dibujar {
 
 	public void dibujar(Laberinto lab, int M, int N) {
 		// M ==FILAS N==COLUMNAS
-		Dibujar miLaberinto = new Dibujar(N, M,lab);
+		Dibujar miLaberinto = new Dibujar(N, M, lab);
 		int fd = 1;
 		int flab = M - 1;
 		StdDraw.show(0);
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < N; j++) {
 				//
-				miLaberinto.colorear((j+1),fd, lab.getCeldas()[flab][j].getValor());
+				miLaberinto.colorear((j + 1), fd, lab.getCeldas()[flab][j].getValor());
 
 				if (lab.getCeldas()[flab][j].getVecinoN() == true) {
 					miLaberinto.borrar((j + 1), fd, 'N');
@@ -156,16 +161,20 @@ public class Dibujar {
 
 		miLaberinto.dibujar();
 	}
-	public void solucion(Laberinto lab, int M, int N , ArrayList<Nodo> front, ArrayList<Nodo> solucion,ArrayList<Nodo> arbol) {
+
+	public void solucion(Laberinto lab, int M, int N, ArrayList<Nodo> front, ArrayList<Nodo> solucion,
+			ArrayList<Nodo> arbol) {
+		
 		// M ==FILAS N==COLUMNAS
-		Dibujar miLaberinto = new Dibujar(N, M,lab);
+		Dibujar miLaberinto = new Dibujar(N, M, lab);
 		int fd = 1;
 		int flab = M - 1;
 		StdDraw.show(0);
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < N; j++) {
-				
-				miLaberinto.colorearSolucion((j+1),fd, lab.getCeldas()[flab][j].getValor(), front , solucion, arbol , flab ,j);
+
+				miLaberinto.colorearSolucion((j + 1), fd, lab.getCeldas()[flab][j].getValor(), front, solucion, arbol,
+						flab, j);
 
 				if (lab.getCeldas()[flab][j].getVecinoN() == true) {
 					miLaberinto.borrar((j + 1), fd, 'N');
@@ -184,7 +193,7 @@ public class Dibujar {
 			flab = flab - 1;
 			fd++;
 		}
-		
+
 		miLaberinto.dibujar();
 	}
 }
