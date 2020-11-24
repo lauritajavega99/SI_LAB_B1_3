@@ -22,7 +22,7 @@ public class EscribirJSON {
 		gsonObj.addProperty("MAZE", maze);
 
 		try {
-			FileWriter file = new FileWriter("src\\problema_" + problem.getLaberinto().getFilas() + "X"
+			FileWriter file = new FileWriter("src\\generados\\problema_" + problem.getLaberinto().getFilas() + "x"
 					+ problem.getLaberinto().getColumnas() + ".json");
 			file.write(gsonObj.toString());
 			file.flush();
@@ -36,7 +36,7 @@ public class EscribirJSON {
 	}
 
 	private String construirTextMaze(Problema problem) {
-		String valor = "problema_" + problem.getLaberinto().getFilas() + "X" + problem.getLaberinto().getColumnas()
+		String valor = "problema_" + problem.getLaberinto().getFilas() + "x" + problem.getLaberinto().getColumnas()
 				+ "_maze.json";
 		return valor;
 	}
@@ -59,7 +59,7 @@ public class EscribirJSON {
 
 		try {
 			FileWriter file = new FileWriter(
-					"src\\sucesores_" + lab.getFilas() + "X" + lab.getColumnas() + "_maze.json");
+					"src\\generados\\problema_" + lab.getFilas() + "x" + lab.getColumnas() + "_maze.json");
 			file.write(gsonObj.toString());
 			file.flush();
 			file.close();

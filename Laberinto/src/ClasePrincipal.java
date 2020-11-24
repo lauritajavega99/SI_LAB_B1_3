@@ -55,7 +55,6 @@ public class ClasePrincipal {
 					break;
 				case 3:
 					Dibujar d3 = new Dibujar();
-					Problema problem3 = new Problema();
 					Busqueda b3 = new Busqueda();
 					LeerJSON l3 = new LeerJSON();
 					Frontera f = new Frontera();
@@ -67,9 +66,8 @@ public class ClasePrincipal {
 
 					// SOLUCION DEL LABERINTO
 					ArrayList<Nodo> solucion3 = b3.algoritmosBusqueda(problem);
-					ArrayList<Nodo> front = new ArrayList();
-					ArrayList<Nodo> arbol = new ArrayList();
-					Frontera f3 = new Frontera();
+					ArrayList<Nodo> front = new ArrayList<Nodo>();
+					ArrayList<Nodo> arbol = new ArrayList<Nodo>();
 					arbol = b3.obtenerArbol();
 					f = b3.obtenerFrontera();
 					while (!f.esVacia()) {
@@ -81,8 +79,7 @@ public class ClasePrincipal {
 						d3.solucion(lab3, lab3.getFilas(), lab3.getColumnas(), front, solucion3, arbol);
 
 					} catch (NullPointerException e) {
-						System.out
-								.println("No se ha podido crear el laberinto debido a una inconsistencia del fichero.");
+						System.out.println("No se ha podido crear el laberinto debido a una inconsistencia del fichero.");
 					}
 					salir = true;
 

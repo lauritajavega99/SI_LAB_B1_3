@@ -8,16 +8,14 @@ public class Busqueda {
 
 	private static int ID = 1;
 	private static Frontera F = new Frontera();
-	private static ArrayList<Nodo> ARBOL = new ArrayList();
+	private static ArrayList<Nodo> ARBOL = new ArrayList<Nodo>();
 
 	public Busqueda() {
 
 	}
 
 	public ArrayList<Nodo> algoritmosBusqueda(Problema problem) throws IOException {
-		int profundidad = problem.getLaberinto().getFilas() * problem.getLaberinto().getColumnas(); // LA PROFUNDIDAD
-																									// DEL PROBLEMA
-
+		int profundidad = 1000000; // LA PROFUNDIDAD MAXIMA
 		EscribirSolucion es = new EscribirSolucion();
 		ArrayList<Nodo> solucion = new ArrayList<Nodo>();
 		Scanner sn = new Scanner(System.in);
@@ -75,7 +73,7 @@ public class Busqueda {
 	private static ArrayList<Nodo> AlgoritmoBusqueda(Problema problem, String estrategia, int profundidad) {
 		Visitados visitados = new Visitados();
 		Frontera frontera = new Frontera();
-		ArrayList<Nodo> arbol = new ArrayList();
+		ArrayList<Nodo> arbol = new ArrayList<Nodo>();
 		boolean solucion = false;
 		visitados.crear_vacio();
 		Nodo nodo = new Nodo();
@@ -96,9 +94,6 @@ public class Busqueda {
 				solucion = true;
 			} else if (!visitados.pertenece(nodo.getEstado()) && (nodo.getProfundidad() < profundidad)) {
 				visitados.insertar(nodo.getEstado());
-
-				System.out.println(nodo.toString());
-
 				arbol.add(nodo);
 
 				ArrayList<Nodo> listaNodosHijos = expandirNodo(problem, nodo, estrategia);
@@ -197,7 +192,6 @@ public class Busqueda {
 	}
 
 	private static double redondeo(double d) {
-		// TODO Auto-generated method stub
 		return Math.round(d * Math.pow(10, 17)) / Math.pow(10, 17);
 	}
 

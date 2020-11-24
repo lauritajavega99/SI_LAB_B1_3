@@ -6,8 +6,7 @@ import java.util.Queue;
 
 public class Frontera {
 	Queue<Nodo> frontera;
-	private int contador = 0;
-	ArrayList<Nodo> front = new ArrayList();
+	ArrayList<Nodo> front = new ArrayList<Nodo>();
 
 	public Frontera() {
 

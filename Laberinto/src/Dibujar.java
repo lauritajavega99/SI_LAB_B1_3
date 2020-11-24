@@ -90,7 +90,7 @@ public class Dibujar {
 
 			}
 		}
-		
+
 		//// Pintamos el árbol
 		for (int i = 0; i < arbol.size(); i++) {
 			if (arbol.get(i).getEstado()[0] == m && arbol.get(i).getEstado()[1] == n) {
@@ -100,7 +100,7 @@ public class Dibujar {
 			}
 		}
 
-	//// Pintamos el camino de la solución
+		//// Pintamos el camino de la solución
 		for (int i = 0; i < solucion.size(); i++) {
 			if (solucion.get(i).getEstado()[0] == m && solucion.get(i).getEstado()[1] == n) {
 				StdDraw.setPenColor(StdDraw.RED);
@@ -164,7 +164,7 @@ public class Dibujar {
 
 	public void solucion(Laberinto lab, int M, int N, ArrayList<Nodo> front, ArrayList<Nodo> solucion,
 			ArrayList<Nodo> arbol) {
-		
+
 		// M ==FILAS N==COLUMNAS
 		Dibujar miLaberinto = new Dibujar(N, M, lab);
 		int fd = 1;

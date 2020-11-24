@@ -10,8 +10,7 @@ public class Nodo implements Comparable<Nodo> {
 	private String accion;
 	private int costo;
 
-	public Nodo(int id, Nodo Padre, int[] estado, double valor, int profundidad, int heuristica, String accion,
-			int costo) {
+	public Nodo(int id, Nodo Padre, int[] estado, double valor, int profundidad, int heuristica, String accion, int costo) {
 		this.id = id;
 		this.Padre = Padre;
 		this.estado = estado;
@@ -99,7 +98,7 @@ public class Nodo implements Comparable<Nodo> {
 
 	@Override
 	public int compareTo(Nodo n) {
-		
+
 		// se ordenan por el valor.
 		if (valor < n.valor) {
 			return -1;
