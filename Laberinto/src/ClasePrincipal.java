@@ -34,23 +34,15 @@ public class ClasePrincipal {
 				case 2:
 					Dibujar d = new Dibujar();
 					Problema problem = new Problema();
-					//Busqueda b = new Busqueda();
+					// Busqueda b = new Busqueda();
 					LeerJSON l = new LeerJSON();
 
 					System.out.println("Introduzca el nombre del Problema que desea leer:");
 					nombre = sn.next();
 
 					problem = l.leerJson(nombre);
-					//SOLUCION DEL LABERINTO
-					////Frontera f = new Frontera();
-					//f= b.obtenerFrontera();
-					//while (!f.esVacia()) {
-					//	int[] e = f.primerElemento().getEstado();
-					//	System.out.print(e[0]);
-					//	System.out.println(e[1]);
-					//}
 					Laberinto lab = problem.getLaberinto();
-					
+
 					try {
 						d.dibujar(lab, lab.getFilas(), lab.getColumnas());
 
@@ -63,38 +55,35 @@ public class ClasePrincipal {
 					break;
 				case 3:
 					Dibujar d3 = new Dibujar();
-					Problema problem3 = new Problema();
 					Busqueda b3 = new Busqueda();
 					LeerJSON l3 = new LeerJSON();
-					Frontera  f = new Frontera();
+					Frontera f = new Frontera();
 
 					System.out.println("Introduzca el nombre del Problema que desea resolver:");
 					nombre = sn.next();
 
 					problem = l3.leerJson(nombre);
-					//SOLUCION DEL LABERINTO
+
+					// SOLUCION DEL LABERINTO
 					ArrayList<Nodo> solucion3 = b3.algoritmosBusqueda(problem);
-					ArrayList<Nodo> front = new ArrayList();
-					ArrayList<Nodo> arbol= new ArrayList();
-					Frontera f3 = new Frontera();
-					arbol= b3.obtenerArbol();
-					f= b3.obtenerFrontera();
+					ArrayList<Nodo> front = new ArrayList<Nodo>();
+					ArrayList<Nodo> arbol = new ArrayList<Nodo>();
+					arbol = b3.obtenerArbol();
+					f = b3.obtenerFrontera();
 					while (!f.esVacia()) {
 						front.add(f.primerElemento());
 					}
 					Laberinto lab3 = problem.getLaberinto();
-					
+
 					try {
-						d3.solucion(lab3, lab3.getFilas(), lab3.getColumnas(), front  , solucion3 , arbol);
+						d3.solucion(lab3, lab3.getFilas(), lab3.getColumnas(), front, solucion3, arbol);
 
 					} catch (NullPointerException e) {
-						System.out
-								.println("No se ha podido crear el laberinto debido a una inconsistencia del fichero.");
+						System.out.println("No se ha podido crear el laberinto debido a una inconsistencia del fichero.");
 					}
 					salir = true;
 
 					break;
-
 
 				case 0:
 					salir = true;
@@ -120,19 +109,19 @@ public class ClasePrincipal {
 				int m = sn.nextInt(); // filas
 				System.out.println("Introduce el número de columnas:");
 				int n = sn.nextInt(); // columnas
-				
+
 				Problema problem = new Problema();
 				Laberinto laberinto = new Laberinto();
 				laberinto = introducirCeldas(laberinto, n, m);
 				laberinto = wilson(laberinto);
-				
+
 				problem.setLaberinto(laberinto);
-				
+
 				añadirInicial(problem);
 				añadirObjetivo(problem);
-				
+
 				mostrarCeldas(laberinto);
-				
+
 				System.out.println(problem.toString());
 
 				Dibujar d = new Dibujar();
@@ -140,7 +129,7 @@ public class ClasePrincipal {
 
 				EscribirJSON e = new EscribirJSON();
 				e.escribirJSON(problem);
-				
+
 				salir = true;
 
 			} catch (InputMismatchException e) {
@@ -159,8 +148,8 @@ public class ClasePrincipal {
 		int columnas = problem.getLaberinto().getColumnas();
 		filas = r.nextInt(filas);
 		columnas = r.nextInt(columnas);
-		inicial[0] = filas;
-		inicial[1] = columnas;
+		inicial[0] = 0;
+		inicial[1] = 0;
 		problem.setInicial(inicial);
 	}
 
@@ -168,8 +157,8 @@ public class ClasePrincipal {
 		int[] objetivo = new int[2];
 		int filas = problem.getLaberinto().getFilas();
 		int columnas = problem.getLaberinto().getColumnas();
-		objetivo[0] = filas;
-		objetivo[1] = columnas;
+		objetivo[0] = filas-1;
+		objetivo[1] = columnas-1;
 		problem.setObjetivo(objetivo);
 	}
 
