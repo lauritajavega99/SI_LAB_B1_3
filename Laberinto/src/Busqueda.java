@@ -103,7 +103,13 @@ public class Busqueda {
 					
 				}
 			}
+		
 		}
+		hacerArbolFrontera(arbol,frontera);
+		return Camino(nodo);
+	}
+
+	private static void hacerArbolFrontera(ArrayList<Nodo> arbol, Frontera frontera) {
 		while(!frontera.esVacia()) {
 			Nodo nodito = frontera.primerElemento();
 			int[] estado = nodito.getEstado();
@@ -122,7 +128,7 @@ public class Busqueda {
 		for (int j = 0;j<arbol.size();j++) {
 			ARBOL.add(arbol.get(j));
 		}
-		return Camino(nodo);
+		
 	}
 
 	private static ArrayList<Nodo> Camino(Nodo nodo) {
