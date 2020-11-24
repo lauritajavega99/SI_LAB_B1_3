@@ -21,6 +21,9 @@ public class LeerJSON {
 			archivojson = new FileReader(archivo);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			System.out.print("Fichero no existente");
+			System.exit(0);
+			
 		}
 
 		JsonParser parser = new JsonParser();

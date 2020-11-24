@@ -85,7 +85,6 @@ public class Busqueda {
 		nodo.setAccion("None");
 		nodo.setHeuristica(ponerHeuristica(problem.getObjetivo(), nodo.getEstado()));
 		nodo.setValor(ponerValor(estrategia, nodo));
-
 		frontera.insertarNodo(nodo);
 
 		while (!frontera.esVacia() && !solucion) {
@@ -104,28 +103,34 @@ public class Busqueda {
 				}
 
 			}
+		
 		}
 
-		while (!frontera.esVacia()) {
-			Nodo nodof = frontera.primerElemento();
-			int[] estado = nodof.getEstado();
+		hacerArbolFrontera(arbol,frontera);
+		return Camino(nodo);
+	}
+
+	private static void hacerArbolFrontera(ArrayList<Nodo> arbol, Frontera frontera) {
+		while(!frontera.esVacia()) {
+			Nodo nodo = frontera.primerElemento();
+			int[] estado = nodo.getEstado();
 			boolean pertenece = false;
-			for (int i = 0; i < arbol.size(); i++) {
-				if (arbol.get(i).getEstado()[0] == estado[0] && arbol.get(i).getEstado()[1] == estado[1]) {
+			for(int i= 0 ; i < arbol.size();i++) {
+				if(arbol.get(i).getEstado()[0]==estado[0] && arbol.get(i).getEstado()[1]==estado[1]) {
 					pertenece = true;
 				}
 			}
-			if (!pertenece) {
-				F.insertarNodo(nodof);
-			}
-
+			if(!pertenece) 
+				F.insertarNodo(nodo);
+			
+			
 		}
-
-		for (int j = 0; j < arbol.size(); j++) {
-			ARBOL.add(arbol.get(j));
+		for(int j=0; j< arbol.size();j++) {
+		ARBOL.add(arbol.get(j));
 		}
-		return Camino(nodo);
 	}
+
+
 
 	private static ArrayList<Nodo> Camino(Nodo nodo) {
 		ArrayList<Nodo> caminoSolucion = new ArrayList<Nodo>();

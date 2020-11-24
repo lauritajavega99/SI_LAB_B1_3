@@ -148,8 +148,8 @@ public class ClasePrincipal {
 		int columnas = problem.getLaberinto().getColumnas();
 		filas = r.nextInt(filas);
 		columnas = r.nextInt(columnas);
-		inicial[0] = filas;
-		inicial[1] = columnas;
+		inicial[0] = 0;
+		inicial[1] = 0;
 		problem.setInicial(inicial);
 	}
 
@@ -157,8 +157,8 @@ public class ClasePrincipal {
 		int[] objetivo = new int[2];
 		int filas = problem.getLaberinto().getFilas();
 		int columnas = problem.getLaberinto().getColumnas();
-		objetivo[0] = filas;
-		objetivo[1] = columnas;
+		objetivo[0] = filas-1;
+		objetivo[1] = columnas-1;
 		problem.setObjetivo(objetivo);
 	}
 

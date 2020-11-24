@@ -52,15 +52,15 @@ public class Dibujar {
 
 	public void colorear(int x, int y, int valor) {
 		if (valor == 1) {
-			StdDraw.setPenColor(128, 64, 0);
+			StdDraw.setPenColor(245, 218, 189);
 			StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
 		}
 		if (valor == 2) {
-			StdDraw.setPenColor(StdDraw.GREEN);
+			StdDraw.setPenColor(181, 225, 174);
 			StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
 		}
 		if (valor == 3) {
-			StdDraw.setPenColor(StdDraw.BLUE);
+			StdDraw.setPenColor(154, 206, 223);
 			StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
 		}
 		StdDraw.setPenColor(StdDraw.BLACK);
