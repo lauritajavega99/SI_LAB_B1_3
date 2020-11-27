@@ -84,7 +84,7 @@ public class Busqueda {
 		nodo.setProfundidad(0);
 		nodo.setAccion("None");
 		nodo.setHeuristica(ponerHeuristica(problem.getObjetivo(), nodo.getEstado()));
-		nodo.setValor(ponerValor(estrategia, nodo));
+		nodo.setValor(ponerValor(estrategia, nodo)); 
 		frontera.insertarNodo(nodo);
 
 		while (!frontera.esVacia() && !solucion) {
@@ -95,9 +95,11 @@ public class Busqueda {
 				visitados.insertar(nodo.getEstado());
 				arbol.add(nodo);
 
+				//solo se expadirán aquello que tengan a true el booleano(es decir, no pared)
 				ArrayList<Nodo> listaNodosHijos = expandirNodo(problem, nodo, estrategia);
 				for (int i = 0; i < listaNodosHijos.size(); i++) {
-
+					
+					//Insertamos los nodos hijos que se han generado de ese nodo
 					frontera.insertarNodo(listaNodosHijos.get(i));
 
 				}
@@ -162,17 +164,7 @@ public class Busqueda {
 		return listaNodosHijos;
 	}
 
-	public static boolean pertenece(String accion, ArrayList<Sucesor> sucesores) {
-		boolean pertenece = false;
-		for (int i = 0; i < sucesores.size(); i++) {
-			pertenece = sucesores.get(i).getAccion().equals(accion);
-			if (pertenece) {
-				return pertenece;
-			}
-		}
-		return pertenece;
-	}
-
+	
 	private static double ponerValor(String estrategia, Nodo nodo) {
 		double valor = 0;
 		switch (estrategia) {
@@ -200,6 +192,7 @@ public class Busqueda {
 		return Math.round(d * Math.pow(10, 17)) / Math.pow(10, 17);
 	}
 
+	
 	public static int ponerHeuristica(int[] objetivo, int[] estado) {
 		int manhattan = 0;
 		manhattan = Math.abs(estado[0] - objetivo[0]) + Math.abs(estado[1] - objetivo[1]);

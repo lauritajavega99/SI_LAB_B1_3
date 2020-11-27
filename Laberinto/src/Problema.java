@@ -38,6 +38,8 @@ public class Problema {
 	public void setLaberinto(Laberinto laberinto) {
 		this.laberinto = laberinto;
 	}
+	
+	//True no pared y false pared
 
 	public ArrayList<Sucesor> sucesores(int[] estado, Laberinto lab) {
 		ArrayList<Sucesor> sucesores = new ArrayList<Sucesor>();
@@ -46,7 +48,7 @@ public class Problema {
 			int[] estado0 = { estado[0] - 1, estado[1] };
 			sucesor0.setAccion("N");
 			sucesor0.setEstado(estado0);
-			sucesor0.setCoste(lab.getCeldas()[estado[0] - 1][estado[1]].getValor() + 1);
+			sucesor0.setCoste(lab.getCeldas()[estado[0] - 1][estado[1]].getValor() + 1); //agua, asfalto, tierra.. +1
 			sucesores.add(sucesor0);
 		}
 		if (comprobarLimite(lab, estado, 1) && lab.getCeldas()[estado[0]][estado[1]].getVecinoE()) { // ESTE
@@ -77,13 +79,13 @@ public class Problema {
 	}
 
 	public static boolean comprobarLimite(Laberinto lab, int[] estado, int direccion) { // COMPROBAR LIMITES
-		if (direccion == 0 && estado[0] - 1 > -1) {
+		if (direccion == 0 && estado[0] - 1 > -1) { //norte
 			return true;
-		} else if (direccion == 1 && estado[1] + 1 < lab.getColumnas()) {
+		} else if (direccion == 1 && estado[1] + 1 < lab.getColumnas()) { //este
 			return true;
-		} else if (direccion == 2 && estado[0] + 1 < lab.getFilas()) {
+		} else if (direccion == 2 && estado[0] + 1 < lab.getFilas()) { //sur
 			return true;
-		} else if (direccion == 3 && estado[1] - 1 > -1) {
+		} else if (direccion == 3 && estado[1] - 1 > -1) { //oeste
 			return true;
 		} else {
 			return false;
